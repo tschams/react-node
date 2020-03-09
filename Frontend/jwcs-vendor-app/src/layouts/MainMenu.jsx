@@ -6,7 +6,6 @@ import {
   Drawer,
   Hidden,
   IconButton,
-  Link,
   List,
   ListItem,
   ListItemIcon,
@@ -19,56 +18,59 @@ import { duration } from "@material-ui/core/styles/transitions";
 // Local
 import {
   MenuIcon,
-  HomeIcon,
-  HistoryIcon,
-  SaveAltIcon,
-  DescriptionIcon,
-  PowerSettingsIcon,
-  CopyrightText,
-  VersionText,
+  DashboardIcon,
+  MyProductsIcon,
+  OrdersIcon,
+  AccountingIcon,
+  ReportsIcon,
+  MarketingIcon,
+  ArrowIcon,
 } from "../components";
-import { REACT_APP_COMPANY_SITE_URL } from "../config";
 import { iOS } from "../device";
 import { Navigation } from "../lib";
 import Pages from "../pages";
 import { AuthSelectors, useSelector } from "../state";
-import companyLogo from "../assets/img/company-logo_300x.png";
 import { useStyles } from "./MainMenu.styles";
+import clsx from "clsx";
 
 function getItems() {
   const menuItems = [
     {
-      text: "Home",
-      icon: HomeIcon,
+      text: "Dashboard",
+      icon: DashboardIcon,
       url: Pages.main.home.path,
       urlActiveIf: {
         exact: true,
       },
     },
     {
-      text: "Todos",
-      icon: HistoryIcon,
+      text: "MyProducts",
+      icon: MyProductsIcon,
       url: Pages.todo.list.path,
     },
     {
-      text: "Page 2",
-      icon: SaveAltIcon,
+      text: "Orders",
+      icon: OrdersIcon,
       url: "/page-2",
     },
     {
-      text: "Page 3",
-      icon: DescriptionIcon,
+      text: "Accounting",
+      icon: AccountingIcon,
       url: "/page-3",
     },
     {
-      text: "Logout",
-      icon: PowerSettingsIcon,
-      onClick() {
-        if (!window.confirm("Are you sure you want to log out?")) {
-          return;
-        }
-        Navigation.go("/auth/logout");
-      },
+      text: "Marketing",
+      icon: MarketingIcon,
+      url: "/page-3",
+    },
+    {
+      text: "Reports",
+      icon: ReportsIcon,
+      url: "/page-3",
+    },
+    {
+      text: "Collapse",
+      icon: ArrowIcon,
     },
   ];
 
@@ -85,7 +87,10 @@ function getItems() {
 function _MainMenu() {
   const avatarInfo = useSelector(AuthSelectors.avatarInfo);
   const userFullName = useSelector(AuthSelectors.userFullName);
-  const classes = useStyles();
+  const [isMenuOpen, setMenuOpen] = React.useState(true);
+  const classes = useStyles({
+    isMenuOpen,
+  });
   // #region State
   /**
    * - We use `setCurrentPath` only to cause a re-render, not reading it.
@@ -135,6 +140,8 @@ function _MainMenu() {
         if (iOS) {
           // Prevent swipe back navigation from showing an open menu.
           Navigation.delayed(item.url, duration.leavingScreen + 50);
+        } else if (item.text === "Collapse") {
+          setMenuOpen(isMenuOpen => !isMenuOpen);
         } else {
           Navigation.go(item.url);
         }
@@ -183,15 +190,32 @@ function _MainMenu() {
             <ListItem
               key={text}
               button
-              className={
-                isActive ? classes.menuListItemActive : classes.menuListItem
-              }
+              className={clsx(
+                classes.menuListItem,
+                isActive
+                  ? classes.menuListItemSelected
+                  : text !== "Collapse"
+                  ? classes.menuListItemHoverAndActive
+                  : classes.collapseButton,
+              )}
               onClick={onMenuItemClick(item)}
             >
+              {text !== "Collapse" && (
+                <span
+                  className={clsx(
+                    classes.block,
+                    !isActive && classes.blockHover,
+                  )}
+                ></span>
+              )}
               <ListItemIcon className={classes.menuListItemIcon}>
                 <Icon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText
+                disableTypography
+                primary={text}
+                className={clsx([classes.menuListItemText, classes.text])}
+              />
             </ListItem>
           );
         })}
@@ -213,9 +237,6 @@ function _MainMenu() {
             >
               <MenuIcon />
             </IconButton>
-            <div className={classes.companyLogoShape}>
-              <img src={companyLogo} alt="Company logo" height="32" />
-            </div>
           </Toolbar>
         </AppBar>
       </Hidden>
@@ -248,24 +269,6 @@ function _MainMenu() {
             open
           >
             {menuContent}
-            <div className={classes.companyLogoBox}>
-              <Link
-                color="inherit"
-                href={REACT_APP_COMPANY_SITE_URL}
-                target="blank"
-                rel="noreferrer noopener"
-              >
-                <img src={companyLogo} alt="Company logo" />
-              </Link>
-              <Typography
-                variant="caption"
-                display="block"
-                align="center"
-                style={{ color: "grey", marginLeft: -10, marginRight: -10 }}
-              >
-                <VersionText /> <CopyrightText />
-              </Typography>
-            </div>
           </Drawer>
         </Hidden>
       </nav>

@@ -1,59 +1,55 @@
 import { makeStyles } from "@material-ui/core";
 
-const drawerWidth = 250;
+const drawerWidth = 152;
+const drawerWidthClosed = 66;
 
 export const useStyles = makeStyles(
   theme => ({
-    appBar: {
-      marginLeft: drawerWidth,
-      [theme.breakpoints.up("md")]: {
-        width: `calc(100% - ${drawerWidth}px)`,
-      },
+    appBar(props) {
+      return {
+        marginLeft: props.isMenuOpen ? drawerWidth : drawerWidthClosed,
+        [theme.breakpoints.up("md")]: {
+          width: `calc(100% - ${
+            props.isMenuOpen ? drawerWidth : drawerWidthClosed
+          }px)`,
+        },
+      };
     },
     avatar: {
       margin: 16,
       marginTop: 32,
       padding: 24,
     },
-    companyLogoShape: {
-      position: "relative",
-      left: "30%",
+    drawer(props) {
+      return {
+        [theme.breakpoints.up("md")]: {
+          width: props.isMenuOpen ? drawerWidth : drawerWidthClosed,
+          flexShrink: 0,
+        },
+      };
     },
-    companyLogoBox: {
-      position: "absolute",
-      bottom: 0,
-      textAlign: "center",
-      width: "100%",
-      paddingLeft: 15,
-      paddingRight: 15,
-      "& img": {
-        width: 140,
-        paddingBottom: 10,
-      },
-    },
-    drawer: {
-      [theme.breakpoints.up("md")]: {
-        width: drawerWidth,
-        flexShrink: 0,
-      },
-    },
-    drawerPaper: {
-      color: theme.palette.grey[700],
-      width: drawerWidth,
-      [theme.breakpoints.up("sm")]: {
-        color: theme.palette.primary.contrastText,
-        // backgroundColor: theme.palette.primary.dark,
-        backgroundColor: "#004868",
-      },
+    drawerPaper(props) {
+      return {
+        color: theme.palette.grey[700],
+        width: props.isMenuOpen ? drawerWidth : drawerWidthClosed,
+        whiteSpace: "nowrap",
+        [theme.breakpoints.up("sm")]: {
+          color: theme.palette.primary.contrastText,
+          // backgroundColor: theme.palette.primary.dark,
+          // backgroundColor: "#FFFFFF",
+        },
+      };
     },
     menuRoot: {
-      backgroundColor: "#00364E",
+      backgroundColor: "#FFFFFF",
+      height: "100%",
+      overflow: "hidden",
       [theme.breakpoints.down("sm")]: {
         backgroundColor: "white",
       },
     },
     menuList: {
-      backgroundColor: "#004868",
+      height: "100%",
       [theme.breakpoints.down("sm")]: {
         backgroundColor: "white",
       },
@@ -64,21 +60,68 @@ export const useStyles = makeStyles(
         display: "none",
       },
     },
-    menuListItem: {
-      color: "rgba(255, 255, 255, 0.38)",
-      [theme.breakpoints.down("sm")]: {
-        color: "rgba(0, 0, 0, 0.38)",
+    block: {
+      background: "#F28955",
+      borderRadius: ".25rem 0 0 .25rem",
+      position: "absolute",
+      width: ".38rem",
+      left: 0,
+      top: 0,
+      bottom: 0,
+    },
+    blockHover: {
+      display: "none",
+    },
+    menuListItem(props) {
+      return {
+        padding: ".8rem .6rem .8rem 1.1rem",
+        color: "rgba(255, 255, 255, 0.38)",
+        margin: "0 .5rem",
+        width: props.isMenuOpen ? "89%" : "75%",
+      };
+    },
+    menuListItemSelected: {
+      backgroundColor: "#FCEEE6",
+      borderRadius: ".25rem",
+      "&:hover": {
+        backgroundColor: "#FCEEE6",
       },
     },
-    menuListItemActive: {
-      color: "white",
-      borderLeft: "2px solid white",
-      [theme.breakpoints.down("sm")]: {
-        color: theme.palette.primary.light,
+    menuListItemHoverAndActive: {
+      "&:hover": {
+        backgroundColor: "#FCEEE6",
+        borderRadius: ".25rem",
+        "& $blockHover": {
+          display: "inline-block",
+        },
+      },
+      "&:active": {
+        boxShadow:
+          "inset -1px 2px 5px rgba(239, 114, 50, 0.15), inset 0px 2px 10px rgba(239, 114, 50, 0.08)",
       },
     },
-    menuListItemIcon: {
-      color: "unset",
+    menuListItemText: {
+      minWidth: "5.25rem",
+    },
+    menuListItemIcon(props) {
+      return {
+        color: "unset",
+        minWidth: props.isMenuOpen ? "1.5rem" : "3rem",
+      };
+    },
+    collapseButton: {
+      bottom: "10.5rem",
+      position: "absolute",
+      backgroundColor: "#FFFFFF",
+      "&:hover": {
+        backgroundColor: "#FFFFFF",
+      },
+    },
+    text: {
+      color: "#5B616B",
+      lineHeight: "1rem",
+      fontFamily: "Archivo",
+      fontSize: ".85rem",
     },
     //
     // toolbar: theme.mixins.toolbar,
