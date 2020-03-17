@@ -44,7 +44,7 @@ function getItems() {
       },
     },
     {
-      text: "MyProducts",
+      text: "My Products",
       icon: MyProductsIcon,
       url: Pages.todo.list.path,
     },
