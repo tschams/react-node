@@ -86,11 +86,25 @@ export const useStyles = makeStyles(
       "&:hover": {
         backgroundColor: "#FCEEE6",
       },
+      "& $menuListItemText": {
+        color: "#EF7232",
+        fontWeight: 600,
+      },
+      "& $menuListItemIcon": {
+        fill: "#EF7232",
+      },
     },
     menuListItemHoverAndActive: {
       "&:hover": {
         backgroundColor: "#FCEEE6",
         borderRadius: ".25rem",
+        "& $menuListItemIcon": {
+          fill: "#EF7232",
+        },
+        "& $menuListItemText": {
+          color: "#EF7232",
+          fontWeight: 600,
+        },
         "& $blockHover": {
           display: "inline-block",
         },
@@ -105,7 +119,7 @@ export const useStyles = makeStyles(
     },
     menuListItemIcon(props) {
       return {
-        color: "unset",
+        fill: "#959AA1",
         minWidth: props.isMenuOpen ? "1.5rem" : "3rem",
       };
     },
