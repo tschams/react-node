@@ -29,7 +29,7 @@ import {
 import { iOS } from "../device";
 import { Navigation } from "../lib";
 import Pages from "../pages";
-import { AuthSelectors, useSelector } from "../state";
+import { AuthSelectors, useSelector, useDispatch, PrefActions, PrefSelectors, } from "../state";
 import { useStyles } from "./MainMenu.styles";
 import clsx from "clsx";
 
@@ -102,9 +102,12 @@ function getItems() {
 function _MainMenu() {
   const avatarInfo = useSelector(AuthSelectors.avatarInfo);
   const userFullName = useSelector(AuthSelectors.userFullName);
-  const [isMenuOpen, setMenuOpen] = React.useState(true);
+
+  const isNavOpen = useSelector(PrefSelectors.navOpen);
+  const dispatch = useDispatch();
+
   const classes = useStyles({
-    isMenuOpen,
+    isNavOpen,
   });
   // #region State
   /**
@@ -156,7 +159,7 @@ function _MainMenu() {
           // Prevent swipe back navigation from showing an open menu.
           Navigation.delayed(item.url, duration.leavingScreen + 50);
         } else if (item.text === "Collapse") {
-          setMenuOpen(isMenuOpen => !isMenuOpen);
+          dispatch(PrefActions.toggleOpenNav());
         } else {
           Navigation.go(item.url);
         }

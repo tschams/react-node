@@ -7,10 +7,10 @@ export const useStyles = makeStyles(
   theme => ({
     appBar(props) {
       return {
-        marginLeft: props.isMenuOpen ? drawerWidth : drawerWidthClosed,
+        marginLeft: props.isNavOpen ? drawerWidth : drawerWidthClosed,
         [theme.breakpoints.up("md")]: {
           width: `calc(100% - ${
-            props.isMenuOpen ? drawerWidth : drawerWidthClosed
+            props.isNavOpen ? drawerWidth : drawerWidthClosed
           }px)`,
         },
       };
@@ -23,7 +23,7 @@ export const useStyles = makeStyles(
     drawer(props) {
       return {
         [theme.breakpoints.up("md")]: {
-          width: props.isMenuOpen ? drawerWidth : drawerWidthClosed,
+          width: props.isNavOpen ? drawerWidth : drawerWidthClosed,
           flexShrink: 0,
         },
       };
@@ -31,7 +31,7 @@ export const useStyles = makeStyles(
     drawerPaper(props) {
       return {
         color: theme.palette.grey[700],
-        width: props.isMenuOpen ? drawerWidth : drawerWidthClosed,
+        width: props.isNavOpen ? drawerWidth : drawerWidthClosed,
         whiteSpace: "nowrap",
         [theme.breakpoints.up("sm")]: {
           color: theme.palette.primary.contrastText,
@@ -77,7 +77,7 @@ export const useStyles = makeStyles(
         padding: ".8rem .6rem .8rem 1.1rem",
         color: "rgba(255, 255, 255, 0.38)",
         margin: "0 .5rem",
-        width: props.isMenuOpen ? "89%" : "75%",
+        width: props.isNavOpen ? "89%" : "75%",
       };
     },
     menuListItemSelected: {
@@ -120,7 +120,7 @@ export const useStyles = makeStyles(
     menuListItemIcon(props) {
       return {
         fill: "#959AA1",
-        minWidth: props.isMenuOpen ? "1.5rem" : "3rem",
+        minWidth: props.isNavOpen ? "1.5rem" : "3rem",
       };
     },
     collapseButton: {

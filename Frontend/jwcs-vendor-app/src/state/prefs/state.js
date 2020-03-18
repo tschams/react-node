@@ -23,6 +23,12 @@ export const PrefState = {
         dialogEdit: !state.dialogEdit,
       };
     },
+    [PrefActions.type.PREFS_OPENNAV_TOGGLE](state, { type, ...prefs }) {
+      return {
+        ...state,
+        navOpen: !state.navOpen,
+      };
+    },
     [PrefActions.type.PREFS_UPDATE](state, { type, ...prefs }) {
       return {
         ...state,
