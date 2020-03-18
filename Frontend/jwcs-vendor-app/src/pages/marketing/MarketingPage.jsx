@@ -3,9 +3,9 @@ import { Box, Grid, Typography } from "@material-ui/core";
 // Local
 import { AuthSelectors, useSelector } from "../../state";
 import { useMobile } from "../../themes";
-import { useStyles } from "./HomePage.styles";
+import { useStyles } from "./MarketingPage.styles";
 
-function _HomePage() {
+function _MarketingPage() {
   // const dispatch = useDispatch();
   const userFirstName = useSelector(AuthSelectors.userFirstName);
   const classes = useStyles();
@@ -24,11 +24,11 @@ function _HomePage() {
       </Grid>
       <Grid item xs={12}>
         <Box boxShadow={3} className={classes.contentBox}>
-          DASHBOARD PAGE CONTENT
+          MARKETING PAGE CONTENT
         </Box>
       </Grid>
     </Grid>
   );
 }
 
-export const HomePage = React.memo(_HomePage);
+export const MarketingPage = React.memo(_MarketingPage);

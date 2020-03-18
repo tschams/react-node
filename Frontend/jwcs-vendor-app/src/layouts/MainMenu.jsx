@@ -46,27 +46,42 @@ function getItems() {
     {
       text: "My Products",
       icon: MyProductsIcon,
-      url: Pages.todo.list.path,
+      url: Pages.myProducts.home.path,
+      urlActiveIf: {
+        exact: true,
+      },
     },
     {
       text: "Orders",
       icon: OrdersIcon,
-      url: "/page-2",
+      url: Pages.orders.home.path,
+      urlActiveIf: {
+        exact: true,
+      },
     },
     {
       text: "Accounting",
       icon: AccountingIcon,
-      url: "/page-3",
+      url: Pages.accounting.home.path,
+      urlActiveIf: {
+        exact: true,
+      },
     },
     {
       text: "Marketing",
       icon: MarketingIcon,
-      url: "/page-3",
+      url: Pages.marketing.home.path,
+      urlActiveIf: {
+        exact: true,
+      },
     },
     {
       text: "Reports",
       icon: ReportsIcon,
-      url: "/page-3",
+      url: Pages.reports.home.path,
+        urlActiveIf: {
+        exact: true,
+      },
     },
     {
       text: "Collapse",
