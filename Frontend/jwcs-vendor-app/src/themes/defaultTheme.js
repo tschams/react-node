@@ -25,6 +25,9 @@ export const defaultTheme = createMuiTheme({
     // primary: { main: "#3f51b5" },
     // secondary: { main: "#f50057" },
   },
+  typography: {
+    "fontFamily": "\"Archivo\", sans-serif",
+   }
   // #region Example global overrides for this theme:
   // overrides: {
 

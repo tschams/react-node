@@ -134,7 +134,6 @@ export const useStyles = makeStyles(
     text: {
       color: "#5B616B",
       lineHeight: "1rem",
-      fontFamily: "Archivo, sans-serif",
       fontSize: ".85rem",
     },
     //
