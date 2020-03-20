@@ -132,9 +132,7 @@ export const useStyles = makeStyles(
       },
     },
     text: {
-      color: "#5B616B",
-      lineHeight: "1rem",
-      fontSize: ".85rem",
+      ...theme.mixins.text
     },
     //
     // toolbar: theme.mixins.toolbar,
