@@ -11,7 +11,6 @@ import {
   ListItemText,
   SwipeableDrawer,
   Toolbar,
-  Typography,
 } from "@material-ui/core";
 import { duration } from "@material-ui/core/styles/transitions";
 // Local
@@ -24,6 +23,7 @@ import {
   ReportsIcon,
   MarketingIcon,
   ArrowIcon,
+  CompanyLogoIcon
 } from "../components";
 import { iOS } from "../device";
 import { Navigation } from "../lib";
@@ -34,6 +34,10 @@ import clsx from "clsx";
 
 function getItems() {
   const menuItems = [
+    {
+      text: "Streamlined AI",
+      icon: CompanyLogoIcon,
+    },
     {
       text: "Dashboard",
       icon: DashboardIcon,
@@ -110,7 +114,7 @@ function _MainMenu() {
    * - We use `setCurrentPath` only to cause a re-render, not reading it.
    */
   // #endregion
-  const { menuItems, viewProfileItem } = React.useMemo(getItems);
+  const { menuItems } = React.useMemo(getItems);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [, setCurrentPath] = React.useState(null);
   // #region Callbacks, Effects
@@ -167,9 +171,8 @@ function _MainMenu() {
 
   const menuContent = (
     <div className={classes.menuRoot}>
-      <Divider />
       <List className={classes.menuList}>
-        {menuItems.map(item => {
+        {menuItems.map((item, i) => {
           const { text, icon: Icon, url } = item;
           /**
            * `Navigation.isActive` can only be read reliably since we're
@@ -177,37 +180,35 @@ function _MainMenu() {
            * the `Navigation.onRouteChanged` event handler...
            */
           const isActive = Navigation.isActive(url, item.urlActiveIf);
+          const lastIndex = menuItems.length-1;
           return (
-            <ListItem
-              key={text}
-              button
-              className={clsx(
-                classes.menuListItem,
-                isActive
-                  ? classes.menuListItemSelected
-                  : text !== "Collapse"
-                  ? classes.menuListItemHoverAndActive
-                  : classes.collapseButton,
-              )}
-              onClick={onMenuItemClick(item)}
-            >
-              {text !== "Collapse" && (
+            <div key={text} >
+              {i === 1 && <Divider />}
+              <ListItem
+                button
+                className={clsx(
+                  classes.menuListItem,
+                  isActive && classes.menuListItemSelected,
+                  !isActive && i !== 0 && i !== lastIndex && classes.menuListItemHoverAndActive
+                )}
+                onClick={onMenuItemClick(item)}
+              >
                 <span
                   className={clsx(
                     classes.block,
                     !isActive && classes.blockHover,
                   )}
                 ></span>
-              )}
-              <ListItemIcon className={classes.menuListItemIcon}>
-                <Icon />
-              </ListItemIcon>
-              <ListItemText
-                disableTypography
-                primary={text}
-                className={clsx([classes.menuListItemText, classes.text])}
-              />
-            </ListItem>
+                <ListItemIcon className={classes.menuListItemIcon}>
+                  <Icon />
+                </ListItemIcon>
+                <ListItemText
+                  disableTypography
+                  primary={text}
+                  className={clsx([classes.menuListItemText, classes.text])}
+                />
+              </ListItem>
+            </div>
           );
         })}
       </List>

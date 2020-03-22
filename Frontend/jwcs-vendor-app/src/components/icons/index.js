@@ -54,3 +54,4 @@ export { ReactComponent as MyProductsIcon } from "./MyProductsIcon.svg";
 export { ReactComponent as OrdersIcon } from "./OrdersIcon.svg";
 export { ReactComponent as ReportsIcon } from "./ReportsIcon.svg";
 export { ReactComponent as ArrowIcon } from "./ArrowIcon.svg";
+export { ReactComponent as CompanyLogoIcon } from "./CompanyLogoIcon.svg";

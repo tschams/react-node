@@ -45,8 +45,31 @@ export const useStyles = makeStyles(
     },
     menuList: {
       height: "100%",
+      padding: 0,
       [theme.breakpoints.down("sm")]: {
         backgroundColor: "white",
+      },
+      "& > div:last-child > div, & > div:first-child > div": {
+        backgroundColor: "#FFFFFF",
+        "&:hover": {
+          backgroundColor: "#FFFFFF",
+        },
+      },
+      "& > div:last-child > span, & > div:first-child > span": {
+        display: "none"
+      },
+      "& > div:last-child > div": {
+        bottom: "1rem",
+        position: "absolute",
+      },
+      "& > div:first-child > div": {
+        height: "4.5rem",
+        "&:hover": {
+          cursor: "auto"
+        },
+      },
+      "& > div:nth-child(2) > div": {
+        marginTop: ".5rem"
       },
     },
     menuButton: {
@@ -67,13 +90,11 @@ export const useStyles = makeStyles(
     blockHover: {
       display: "none",
     },
-    menuListItem(props) {
-      return {
+    menuListItem: {
         padding: ".8rem .6rem .8rem 1.1rem",
         color: "rgba(255, 255, 255, 0.38)",
         margin: "0 .5rem",
-        width: props.isNavOpen ? "89%" : "75%",
-      };
+        width: props => props.isNavOpen ? "89%" : "75%",
     },
     menuListItemSelected: {
       backgroundColor: "#FCEEE6",
@@ -117,14 +138,6 @@ export const useStyles = makeStyles(
         fill: "#959AA1",
         minWidth: props.isNavOpen ? "1.5rem" : "3rem",
       };
-    },
-    collapseButton: {
-      bottom: "1.5rem",
-      position: "absolute",
-      backgroundColor: "#FFFFFF",
-      "&:hover": {
-        backgroundColor: "#FFFFFF",
-      },
     },
     text: {
       ...theme.mixins.text
