@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29911.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "JWCSData", "JWCSData\JWCSData.sqlproj", "{F96880FE-2F42-4FE1-BB9A-2CB57F397B03}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F96880FE-2F42-4FE1-BB9A-2CB57F397B03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F96880FE-2F42-4FE1-BB9A-2CB57F397B03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F96880FE-2F42-4FE1-BB9A-2CB57F397B03}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F96880FE-2F42-4FE1-BB9A-2CB57F397B03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F96880FE-2F42-4FE1-BB9A-2CB57F397B03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F96880FE-2F42-4FE1-BB9A-2CB57F397B03}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {199AED9C-F2DB-4AB9-B3F2-C526D3FCC2B5}
+	EndGlobalSection
+EndGlobal

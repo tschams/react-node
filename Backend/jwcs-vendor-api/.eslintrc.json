@@ -1,0 +1,56 @@
+{
+  "root": true,
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "prettier"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2019,
+    "sourceType": "module"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".ts"
+        ]
+      }
+    }
+  },
+  "rules": {
+    "no-console": "off",
+    "no-process-exit": "off",
+    "no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": ".",
+        "varsIgnorePattern": "^_"
+      }
+    ],
+    "prefer-const": "off",
+    "quotes": "off",
+    "semi": "error",
+    "strict": "error"
+  },
+  "overrides": [
+    {
+      "files": "**/*.ts",
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier"
+      ],
+      "plugins": [
+        "@typescript-eslint/eslint-plugin"
+      ],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": "off"
+      }
+    }
+  ]
+}
