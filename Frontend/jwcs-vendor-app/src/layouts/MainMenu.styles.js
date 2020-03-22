@@ -15,11 +15,6 @@ export const useStyles = makeStyles(
         },
       };
     },
-    avatar: {
-      margin: 16,
-      marginTop: 32,
-      padding: 24,
-    },
     drawer(props) {
       return {
         [theme.breakpoints.up("md")]: {
@@ -141,16 +136,6 @@ export const useStyles = makeStyles(
     // then use it with a div to match the AppBar height, e.g.
     // <div className={classes.toolbar} />
     //
-    userName: {
-      marginBottom: -8,
-      marginLeft: 16,
-      marginTop: 0,
-    },
-    viewProfileText: {
-      [theme.breakpoints.down("sm")]: {
-        color: theme.palette.primary.main,
-      },
-    },
   }),
   {
     classNamePrefix: "MainMenu",

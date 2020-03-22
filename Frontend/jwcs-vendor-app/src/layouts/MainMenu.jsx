@@ -1,7 +1,6 @@
 import React from "react";
 import {
   AppBar,
-  Avatar,
   Divider,
   Drawer,
   Hidden,
@@ -29,7 +28,7 @@ import {
 import { iOS } from "../device";
 import { Navigation } from "../lib";
 import Pages from "../pages";
-import { AuthSelectors, useSelector, useDispatch, PrefActions, PrefSelectors, } from "../state";
+import { useSelector, useDispatch, PrefActions, PrefSelectors, } from "../state";
 import { useStyles } from "./MainMenu.styles";
 import clsx from "clsx";
 
@@ -100,9 +99,6 @@ function getItems() {
 }
 
 function _MainMenu() {
-  const avatarInfo = useSelector(AuthSelectors.avatarInfo);
-  const userFullName = useSelector(AuthSelectors.userFullName);
-
   const isNavOpen = useSelector(PrefSelectors.navOpen);
   const dispatch = useDispatch();
 
@@ -171,29 +167,6 @@ function _MainMenu() {
 
   const menuContent = (
     <div className={classes.menuRoot}>
-      <Avatar
-        className={classes.avatar}
-        style={{
-          color: avatarInfo.textColor,
-          backgroundColor: avatarInfo.bgColor,
-        }}
-      >
-        {avatarInfo.text}
-      </Avatar>
-      <Typography variant="h6" className={classes.userName}>
-        {userFullName}
-      </Typography>
-      <List style={{ padding: 0 }}>
-        <ListItem button onClick={onMenuItemClick(viewProfileItem)}>
-          <ListItemText
-            primary={
-              <Typography className={classes.viewProfileText} variant="body2">
-                View profile
-              </Typography>
-            }
-          />
-        </ListItem>
-      </List>
       <Divider />
       <List className={classes.menuList}>
         {menuItems.map(item => {
