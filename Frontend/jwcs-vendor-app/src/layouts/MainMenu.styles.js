@@ -119,7 +119,7 @@ export const useStyles = makeStyles(
       };
     },
     collapseButton: {
-      bottom: "10.5rem",
+      bottom: "1.5rem",
       position: "absolute",
       backgroundColor: "#FFFFFF",
       "&:hover": {
