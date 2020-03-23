@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [dbo].[VendorUser](
 	[Id] INT IDENTITY(1,1) NOT NULL,
+	[VendorId] INT NOT NULL,
 	[UserName] NVARCHAR(256) NULL,
 	[NormalizedUserName] NVARCHAR(256) NULL,
 	[Email] NVARCHAR(256) NULL,
@@ -13,7 +14,8 @@
 	[TwoFactorEnabled] BIT NOT NULL,
 	[LockoutEnd] DATETIMEOFFSET(7) NULL,
 	[LockoutEnabled] BIT NOT NULL,
-	[AccessFailedCount] INT NOT NULL
+	[AccessFailedCount] INT NOT NULL, 
+    CONSTRAINT [FK_VendorUser_Vendor] FOREIGN KEY ([VendorId]) REFERENCES [Vendor]([Id]) ON DELETE CASCADE
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[VendorUser] ADD  CONSTRAINT [PK_VendorUser] PRIMARY KEY CLUSTERED 
@@ -32,3 +34,6 @@ CREATE UNIQUE NONCLUSTERED INDEX [UserNameIndex] ON [dbo].[VendorUser]
 )
 WHERE ([NormalizedUserName] IS NOT NULL)
 WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+CREATE INDEX [IX_VendorUser_Vendor] ON [dbo].[VendorUser] ([VendorId]);
