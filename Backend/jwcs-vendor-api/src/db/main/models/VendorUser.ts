@@ -1,7 +1,7 @@
 import { PasswordUtils } from "../../../lib/security/passwords";
 import { mainDb } from "../mainDb";
 
-export class VendorUser {
+export interface VendorUser {
   id?: number;
   vendorId?: number;
   userName?: string;
@@ -18,12 +18,10 @@ export class VendorUser {
   lockoutEnd?: Date | string;
   lockoutEnabled?: boolean;
   accessFailedCount?: number;
+}
 
-  constructor(values?: VendorUser) {
-    Object.assign(this, values);
-  }
-
-  static async create({
+export const VendorUser = {
+  async create({
     vendorId,
     email,
     password,
@@ -50,35 +48,33 @@ export class VendorUser {
 
     const [user] = await mainDb("VendorUser")
       .returning("*")
-      .insert(
-        new VendorUser({
-          vendorId,
-          userName: email,
-          normalizedUserName: normalizedEmail,
-          email,
-          normalizedEmail,
-          emailConfirmed: true,
-          passwordHash,
-          securityStamp,
-          concurrencyStamp,
-          phoneNumberConfirmed: false,
-          twoFactorEnabled: false,
-          lockoutEnabled: false,
-          accessFailedCount: 0,
-        }),
-      );
+      .insert({
+        vendorId,
+        userName: email,
+        normalizedUserName: normalizedEmail,
+        email,
+        normalizedEmail,
+        emailConfirmed: true,
+        passwordHash,
+        securityStamp,
+        concurrencyStamp,
+        phoneNumberConfirmed: false,
+        twoFactorEnabled: false,
+        lockoutEnabled: false,
+        accessFailedCount: 0,
+      });
 
     return user;
-  }
+  },
 
-  static async findByEmail(email: string): Promise<VendorUser> {
+  async findByEmail(email: string): Promise<VendorUser> {
     const normalizedEmail = (email || "").trim().toUpperCase();
     return mainDb("VendorUser")
       .where({ normalizedEmail })
       .first();
-  }
+  },
 
-  static async getAll(): Promise<VendorUser[]> {
+  async getAll(): Promise<VendorUser[]> {
     return mainDb("VendorUser").select();
-  }
-}
+  },
+};

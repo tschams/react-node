@@ -1,25 +1,23 @@
 import { mainDb } from "../mainDb";
 
-export class Vendor {
+export interface Vendor {
   id?: number;
   name?: string;
+}
 
-  constructor(values?: Vendor) {
-    Object.assign(this, values);
-  }
-
-  static async create(values: Vendor): Promise<Vendor> {
+export const Vendor = {
+  async create(values: Vendor): Promise<Vendor> {
     const [row] = await mainDb("Vendor")
       .returning("*")
       .insert(values);
     return row;
-  }
+  },
 
-  static async listAll(): Promise<Vendor[]> {
+  async listAll(): Promise<Vendor[]> {
     return mainDb("Vendor").select();
-  }
+  },
 
-  static async update(values: Vendor): Promise<Vendor> {
+  async update(values: Vendor): Promise<Vendor> {
     const {
       // Remove fields we don't update.
       id,
