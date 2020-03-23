@@ -164,11 +164,14 @@ export const Spec = {
       tags: [name],
     };
     // Create paths from operations.
-    Object.keys(operations).forEach(opType => {
+    Object.keys(operations).forEach(opKey => {
       // Get our custom properties and the rest to pass onto OpenAPI.
-      let { path: opPath = path, roles: opRoles = roles, ...op } = operations[
-        opType
-      ];
+      let {
+        path: opPath = path,
+        roles: opRoles = roles,
+        type: opType = opKey,
+        ...op
+      } = operations[opKey];
       if (opPath.substr(0, 1) !== "/") {
         opPath = `${path}/${opPath}`;
       }

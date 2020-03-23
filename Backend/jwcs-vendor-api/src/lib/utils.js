@@ -1,3 +1,5 @@
+import crypto from "crypto";
+
 /** An empty function that always returns nothing. */
 export function noHandler() {
   return;
@@ -19,4 +21,8 @@ export function timeoutAsync(timeout = 350, handler = noHandler, ...args) {
       resolve(result);
     }, timeout);
   });
+}
+
+export function updateStamp() {
+  crypto.pseudoRandomBytes(32).toString("hex");
 }
