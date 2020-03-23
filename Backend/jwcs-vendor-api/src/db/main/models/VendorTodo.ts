@@ -28,7 +28,9 @@ export const VendorTodo = {
   async remove(vendorId: number, id: number): Promise<boolean> {
     // TODO: Implement soft-deletes where we simply update the row and set
     // a nullable "DeletedOn" date...
-    var result = await mainDb("Vendor").where({ id, vendorId }).del();
+    const result = await mainDb("Vendor")
+      .where({ id, vendorId })
+      .del();
     return result === 1;
   },
 
@@ -51,4 +53,4 @@ export const VendorTodo = {
       });
     return row;
   },
-}
+};

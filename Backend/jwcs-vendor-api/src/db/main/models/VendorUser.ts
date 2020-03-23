@@ -1,5 +1,6 @@
 import { PasswordUtils } from "../../../lib/security/passwords";
 import { mainDb } from "../mainDb";
+import { VendorAuthRole } from "./VendorAuthRole";
 
 export interface VendorUser {
   id?: number;
@@ -18,6 +19,10 @@ export interface VendorUser {
   lockoutEnd?: Date | string;
   lockoutEnabled?: boolean;
   accessFailedCount?: number;
+
+  // Input and related data
+
+  roles?: string[];
 }
 
 export const VendorUser = {
@@ -69,9 +74,12 @@ export const VendorUser = {
 
   async findByEmail(email: string): Promise<VendorUser> {
     const normalizedEmail = (email || "").trim().toUpperCase();
-    return mainDb("VendorUser")
-      .where({ normalizedEmail })
-      .first();
+    const user: VendorUser = await mainDb("VendorUser")
+      .first()
+      .where({ normalizedEmail });
+    const roles = await VendorAuthRole.findRoleNamesByUserId(user.id);
+    user.roles = roles.map(r => r.name);
+    return user;
   },
 
   async getAll(): Promise<VendorUser[]> {

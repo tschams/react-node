@@ -25,13 +25,21 @@ const controller = {
             vendorId: user.vendorId,
             id: user.id,
             email: user.email,
-            // TODO: Add role names from VendorUserRoles
+            roles: user.roles,
           },
         },
         "TOP_SECRET",
       );
 
-      res.json({ token });
+      res.json({
+        token,
+        user: {
+          vendorId: user.vendorId,
+          id: user.id,
+          email: user.email,
+          roles: user.roles,
+        },
+      });
     },
   ],
 };

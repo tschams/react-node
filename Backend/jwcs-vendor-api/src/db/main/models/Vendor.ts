@@ -29,5 +29,5 @@ export const Vendor = {
       .where({ id })
       .update(updateValues);
     return row;
-  }
-}
+  },
+};
