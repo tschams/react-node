@@ -15,6 +15,7 @@ export default __DEV__
           summary: "Creates a new user.",
           description: "Create User",
           requestBody: Spec.jsonRequestBodyObject({
+            vendorId: { type: "integer" },
             email: { type: "string", format: "email" },
             password: { type: "string", minLength: 8 },
           }),

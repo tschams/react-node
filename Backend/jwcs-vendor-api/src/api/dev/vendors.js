@@ -1,4 +1,4 @@
-import { VendorUser } from "../../db";
+import { Vendor } from "../../db";
 
 /**
  * @typedef {import("express").Request} Request
@@ -8,18 +8,27 @@ import { VendorUser } from "../../db";
 
 /** @type {Controller} */
 const controller = {
-  async createUser(req, res) {
+  async create(req, res) {
     // console.log("QUERY: ", req.query);
     // console.log("BODY: ", req.body);
-    const item = await VendorUser.create(req.body);
+    const item = await Vendor.create(req.body);
     res.json({
       item,
     });
   },
-  async getUsers(req, res) {
-    const items = await VendorUser.getAll();
+  async listAll(req, res) {
+    const items = await Vendor.listAll();
     res.json({
       items,
+    });
+  },
+  async update(req, res) {
+    const item = await Vendor.update({
+      id: req.params.id,
+      ...req.body,
+    });
+    res.json({
+      item,
     });
   },
 };

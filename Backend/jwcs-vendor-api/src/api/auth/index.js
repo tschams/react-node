@@ -21,7 +21,12 @@ const controller = {
 
       const token = jwt.sign(
         {
-          user: { id: user.id, email: user.email },
+          user: {
+            vendorId: user.vendorId,
+            id: user.id,
+            email: user.email,
+            // TODO: Add role names from VendorUserRoles
+          },
         },
         "TOP_SECRET",
       );

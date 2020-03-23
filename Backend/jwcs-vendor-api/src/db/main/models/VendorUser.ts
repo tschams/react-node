@@ -3,6 +3,7 @@ import { mainDb } from "../mainDb";
 
 export class VendorUser {
   id?: number;
+  vendorId?: number;
   userName?: string;
   normalizedUserName?: string;
   email?: string;
@@ -22,7 +23,15 @@ export class VendorUser {
     Object.assign(this, values);
   }
 
-  static async create(email: string, password: string): Promise<VendorUser> {
+  static async create({
+    vendorId,
+    email,
+    password,
+  }: {
+    vendorId: number;
+    email: string;
+    password: string;
+  }): Promise<VendorUser> {
     email = (email || "").trim();
     password = (password || "").trim();
     if (!email || !password) {
@@ -39,24 +48,25 @@ export class VendorUser {
     const securityStamp = await PasswordUtils.randomByteString();
     const concurrencyStamp = await PasswordUtils.randomByteString();
 
-    const data = new VendorUser({
-      userName: email,
-      normalizedUserName: normalizedEmail,
-      email,
-      normalizedEmail,
-      emailConfirmed: true,
-      passwordHash,
-      securityStamp,
-      concurrencyStamp,
-      phoneNumberConfirmed: false,
-      twoFactorEnabled: false,
-      lockoutEnabled: false,
-      accessFailedCount: 0,
-    });
-
     const [user] = await mainDb("VendorUser")
       .returning("*")
-      .insert(data);
+      .insert(
+        new VendorUser({
+          vendorId,
+          userName: email,
+          normalizedUserName: normalizedEmail,
+          email,
+          normalizedEmail,
+          emailConfirmed: true,
+          passwordHash,
+          securityStamp,
+          concurrencyStamp,
+          phoneNumberConfirmed: false,
+          twoFactorEnabled: false,
+          lockoutEnabled: false,
+          accessFailedCount: 0,
+        }),
+      );
 
     return user;
   }
