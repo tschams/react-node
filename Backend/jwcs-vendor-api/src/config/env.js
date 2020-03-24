@@ -4,6 +4,8 @@ require("dotenv-flow").config();
 // Import variables from the environment and your ".env" files.
 
 let {
+  NODE_ENV = "development",
+
   API_DOCS_PATH = "/api-docs",
   API_DOMAIN = "localhost",
   API_PATH = "/",
@@ -16,7 +18,8 @@ let {
   DB_USER,
   DB_PASS,
 
-  NODE_ENV = "development",
+  USER_JWT_EXPIRES,
+  USER_JWT_SECRET,
 } = process.env;
 
 /** True if in development mode. */
@@ -36,6 +39,7 @@ export const API_DOCS_URL = `${SITE_URL}${API_DOCS_PATH}`;
 
 export {
   __DEV__,
+  NODE_ENV,
   //
   // API
   //
@@ -53,5 +57,6 @@ export {
   DB_USER,
   DB_PASS,
   //
-  NODE_ENV,
+  USER_JWT_EXPIRES,
+  USER_JWT_SECRET,
 };

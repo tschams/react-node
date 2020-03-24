@@ -1,6 +1,8 @@
-// import { VendorUser } from "../../db";
-import passport from "../../auth/passport";
 import jwt from "jsonwebtoken";
+// Local
+import { USER_JWT_EXPIRES, USER_JWT_SECRET } from "../../config";
+import passport from "../../auth/passport";
+// import { VendorUser } from "../../db";
 
 /**
  * @typedef {import("express").Request} Request
@@ -20,17 +22,25 @@ const controller = {
       const { user } = req;
 
       const token = jwt.sign(
+        // To keep the token small, only sign the essential facts here.
+        // Essential facts are those needed to secure an API call.
         {
           user: {
             vendorId: user.vendorId,
             id: user.id,
-            email: user.email,
             roles: user.roles,
+            // email isn't included here, instead - when you need it, get the
+            // most recent one from the database.
           },
         },
-        "TOP_SECRET",
+        USER_JWT_SECRET,
+        // jwt.sign options - https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback
+        {
+          expiresIn: USER_JWT_EXPIRES,
+        },
       );
 
+      // Aside from the token, you can return whatever other data you want here.
       res.json({
         token,
         user: {
