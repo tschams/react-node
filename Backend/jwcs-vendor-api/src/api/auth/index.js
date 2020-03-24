@@ -39,10 +39,19 @@ const controller = {
           expiresIn: USER_JWT_EXPIRES,
         },
       );
+      /**
+       * NOTE: We can just call `jwt.decode` instead of `jwt.verify` here, since
+       * we just created the token above and we know it's safe.
+       * @type {{user:any,iat:number,exp:number}}
+       */
+      const tokenData = jwt.decode(token, { json: true });
+      // console.log("TOKEN DATA: ", tokenData);
+      // console.log("EXPIRES: ", new Date(tokenData.exp * 1000));
 
       // Aside from the token, you can return whatever other data you want here.
       res.json({
         token,
+        expiration: tokenData.exp, // JS time epoch, in seconds.
         user: {
           vendorId: user.vendorId,
           vendorName: user.vendorName,
