@@ -6,7 +6,7 @@ require("dotenv-flow").config();
 let {
   NODE_ENV = "development",
 
-  API_DOCS_PATH = "/api-docs",
+  API_DOCS_PATH = "docs",
   API_DOMAIN = "localhost",
   API_PATH = "/",
   API_PORT,
@@ -17,6 +17,8 @@ let {
   DB_NAME,
   DB_USER,
   DB_PASS,
+
+  FRONTEND_SITE_URL,
 
   USER_JWT_EXPIRES,
   USER_JWT_SECRET,
@@ -32,6 +34,9 @@ if (!process.env.NODE_ENV) {
 // - Format any strings that need formatting.
 DB_PORT = parseInt(DB_PORT);
 API_PORT = parseInt(API_PORT);
+
+if (API_DOCS_PATH.substr(0, 1) !== "/")
+  API_DOCS_PATH = `${API_PATH}/${API_DOCS_PATH}`;
 
 export const SITE_URL = `${API_SCHEME}://${API_DOMAIN}:${API_PORT}`;
 export const API_URL = `${SITE_URL}${API_PATH}`;
@@ -56,6 +61,8 @@ export {
   DB_NAME,
   DB_USER,
   DB_PASS,
+  //
+  FRONTEND_SITE_URL,
   //
   USER_JWT_EXPIRES,
   USER_JWT_SECRET,
