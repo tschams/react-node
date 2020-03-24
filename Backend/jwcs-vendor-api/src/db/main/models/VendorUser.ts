@@ -2,6 +2,7 @@ import { PasswordUtils } from "../../../lib/security/passwords";
 import { mainDb } from "../mainDb";
 import { Vendor } from "./Vendor";
 import { VendorAuthRole } from "./VendorAuthRole";
+import { VendorUserRole } from "./VendorUserRole";
 
 export interface VendorUser {
   id?: number;
@@ -32,10 +33,12 @@ export const VendorUser = {
     vendorId,
     email,
     password,
+    role,
   }: {
     vendorId: number;
     email: string;
     password: string;
+    role: string;
   }): Promise<VendorUser> {
     email = (email || "").trim();
     password = (password || "").trim();
@@ -70,6 +73,12 @@ export const VendorUser = {
         lockoutEnabled: false,
         accessFailedCount: 0,
       });
+
+    if (role) {
+      const authRole = await VendorAuthRole.findByName(role);
+      await VendorUserRole.create({ userId: user.id, roleId: authRole.id });
+      user.roles = [authRole.name];
+    }
 
     return user;
   },
