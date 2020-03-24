@@ -5,13 +5,16 @@ export default Spec.controller("auth", {
   operations: {
     post: Spec.op("login", {
       path: "login",
-      summary: "Generates an access token.",
-      description: "Generates access token.",
+      summary: "Authenticate user credentials. Return access token, user info.",
+      description:
+        "Generates a JWT access token after authentication.\n\n" +
+        "See the data contained in your token at " +
+        "[https://jwt.io/](https://jwt.io/#debugger-io)\n\n",
       requestBody: Spec.jsonRequestBodyObject({
         email: { type: "string", format: "email" },
         password: { type: "string", minLength: 8 },
       }),
-      // parameters: Spec.query({ sendInvite: "boolean" }),
+      // parameters: Spec.query({ propName: "boolean|string|integer" }),
       responses: {
         200: Spec.response("OK"),
       },
