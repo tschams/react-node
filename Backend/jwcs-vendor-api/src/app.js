@@ -23,7 +23,18 @@ app.get("/swagger.json", (req, res) => {
   res.send(apiSpec);
 });
 
-app.use(API_DOCS_PATH, swaggerUI.serve, swaggerUI.setup(apiSpec));
+// See:
+// - https://www.npmjs.com/package/swagger-ui-express#custom-swagger-options
+// - https://github.com/swagger-api/swagger-ui/blob/master/docs/usage/configuration.md#display
+app.use(
+  API_DOCS_PATH,
+  swaggerUI.serve,
+  swaggerUI.setup(apiSpec, {
+    swaggerOptions: {
+      docExpansion: "none",
+    },
+  }),
+);
 // TODO: Enable CORS.
 // app.use(Cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: false }));
