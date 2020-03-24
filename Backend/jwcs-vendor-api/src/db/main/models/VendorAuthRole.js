@@ -19,6 +19,15 @@ export const VendorAuthRole = {
    * @returns {Promise<VendorAuthRole>}
    */
   async create(values) {
+    if (!values.name) {
+      throw new Error("VendorAuthRole.name required.");
+    }
+    if (!values.concurrencyStamp) {
+      values.concurrencyStamp = mainDb.raw("NEWID()");
+    }
+    if (!values.normalizedName) {
+      values.normalizedName = values.name.trim().toUpperCase();
+    }
     const [row] = await mainDb(table)
       .returning("*")
       .insert(values);
