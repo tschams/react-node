@@ -274,7 +274,7 @@ export function setAuthRequestToken(token, expiration) {
   removeAuthRequestToken();
   if (token) {
     authToken = token;
-    authExpirationDate = new Date(expiration);
+    authExpirationDate = new Date(expiration * 1000);
     authInterceptorId = AuthRequest.interceptors.request.use(
       applyAuthHeaders,
       // CONSIDER: An error handler can be passed. (Useful for refresh token

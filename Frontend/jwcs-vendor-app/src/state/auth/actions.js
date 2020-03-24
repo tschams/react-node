@@ -1,5 +1,5 @@
 import {
-  // authPost,
+  authPost,
   setAuthRequestToken,
   removeAuthRequestToken,
 } from "../../lib";
@@ -55,27 +55,27 @@ export const AuthActions = {
     return async dispatch => {
       dispatch({ type: type.LOGIN_REQUEST });
       dispatch(UIActions.setUILoading(true));
-      // const response = await authPost("/api/auth/login", {
-      //   userName: email,
-      //   password,
-      // });
-      // TODO: Make ajax call as shown above and delete mock response below.
-      const response = await Promise.resolve({
-        error: undefined,
-        data: {
-          // Mock token created at https://jwt.io/
-          token:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NzciLCJuYW1lIjoic2FtcGxldXNlckBzYW1wbGVjb21wYW55LmNvbSIsImlhdCI6MTUxNjIzOTAyMiwicm9sZXMiOlsidXNlciJdfQ.Jy5RtExl6b1mwKMWpd9jIIV9v2JZhicb8SCeSYVTZ7s",
-          expiration: new Date(
-            new Date().getFullYear() + 1,
-            0,
-            1,
-          ).toISOString(),
-          email: "demouser@gmail.com",
-          company: { id: 999, name: "Demo Company" },
-          user: { id: 777, firstName: "Demo", lastName: "User" },
-        },
+      const response = await authPost("/auth/login", {
+        email,
+        password,
       });
+      // TODO: Make ajax call as shown above and delete mock response below.
+      // const response = await Promise.resolve({
+      //   error: undefined,
+      //   data: {
+      //     // Mock token created at https://jwt.io/
+      //     token:
+      //       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NzciLCJuYW1lIjoic2FtcGxldXNlckBzYW1wbGVjb21wYW55LmNvbSIsImlhdCI6MTUxNjIzOTAyMiwicm9sZXMiOlsidXNlciJdfQ.Jy5RtExl6b1mwKMWpd9jIIV9v2JZhicb8SCeSYVTZ7s",
+      //     expiration: new Date(
+      //       new Date().getFullYear() + 1,
+      //       0,
+      //       1,
+      //     ).toISOString(),
+      //     email: "demouser@gmail.com",
+      //     company: { id: 999, name: "Demo Company" },
+      //     user: { id: 777, firstName: "Demo", lastName: "User" },
+      //   },
+      // });
       const { error } = response;
       if (error) {
         dispatch({

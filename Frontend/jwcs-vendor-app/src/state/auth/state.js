@@ -8,6 +8,7 @@ import { AuthActions } from "./actions";
  *  expiration: "2020-09-17T13:41:08Z",
  *  company: { id: 999, name: "Demo Company" },
  *  user: {
+ *   vendorId: 999,
  *   id: 123,
  *   firstName: "Demo",
  *   lastName: "User",
