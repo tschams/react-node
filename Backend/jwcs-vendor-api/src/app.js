@@ -1,5 +1,5 @@
 import express from "express";
-// import Cors from "cors";
+import CORS from "cors";
 import bodyParser from "body-parser";
 import logger from "morgan";
 import passport from "./auth/passport";
@@ -12,6 +12,7 @@ import {
   API_DOCS_URL,
   API_PORT,
   API_URL,
+  FRONTEND_SITE_URL,
   SITE_URL,
 } from "./config";
 import { apiSpec } from "./api";
@@ -37,8 +38,19 @@ if (__DEV__) {
     }),
   );
 }
-// TODO: Enable CORS.
-// app.use(Cors(corsOptions));
+/**
+ * Enable CORS. See:
+ * - https://www.npmjs.com/package/cors#usage
+ * - https://github.com/expressjs/cors
+ * - https://www.html5rocks.com/en/tutorials/cors/
+ */
+app.use(
+  CORS({
+    maxAge: 86400, // 24 hours, in seconds.
+    origin: FRONTEND_SITE_URL,
+    // exposedHeaders: ["X-Total-Count"],
+  }),
+);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger("dev"));

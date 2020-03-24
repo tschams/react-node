@@ -18,6 +18,8 @@ let {
   DB_USER,
   DB_PASS,
 
+  FRONTEND_SITE_URL,
+
   USER_JWT_EXPIRES,
   USER_JWT_SECRET,
 } = process.env;
@@ -59,6 +61,8 @@ export {
   DB_NAME,
   DB_USER,
   DB_PASS,
+  //
+  FRONTEND_SITE_URL,
   //
   USER_JWT_EXPIRES,
   USER_JWT_SECRET,
