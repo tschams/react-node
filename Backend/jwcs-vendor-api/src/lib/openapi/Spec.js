@@ -28,8 +28,8 @@ export const Spec = {
     title = "An API",
     /** Description of the API. */
     description = "An API to serve the front-end",
-    /** Development URL of the API. */
-    url = "http://localhost:3000",
+    /** Base URL of the running API server. */
+    url = "http://localhost:3000/api/v1",
     /** Package Version of the API. */
     version = "1.0.0",
     /** @type {Array<{components:object,paths:object,tags:object[]}>} */
@@ -42,7 +42,7 @@ export const Spec = {
      */
     securitySchemes = undefined,
     /**
-     * Servers besides the development server, to show in the Swagger UI.
+     * Servers besides the primary server, to show in the Swagger UI.
      * @type {Array<{url:string,description:string}>}
      */
     servers = [],
@@ -101,7 +101,7 @@ export const Spec = {
       servers: [
         {
           url,
-          description: "Development server",
+          description: "Running",
         },
         ...servers,
       ],

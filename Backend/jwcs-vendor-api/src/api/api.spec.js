@@ -1,5 +1,5 @@
 // Local
-import { PACKAGE_VERSION, SITE_URL } from "../config";
+import { API_URL, PACKAGE_VERSION } from "../config";
 import { Spec } from "../lib/openapi";
 
 // Controller Specs
@@ -11,7 +11,7 @@ import todos from "./todos/todos.spec";
 export const apiSpec = Spec.app({
   title: "Vendor API",
   description: "Vendor API specification.",
-  url: SITE_URL,
+  url: API_URL,
   version: PACKAGE_VERSION,
 
   modules: [
