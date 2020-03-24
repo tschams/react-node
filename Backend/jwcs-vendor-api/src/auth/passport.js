@@ -38,7 +38,7 @@ passport.use(
     async (email, password, done) => {
       try {
         //Find the user associated with the email provided by the user
-        const user = await UserModel.findByEmail(email);
+        const user = await UserModel.findForLogin(email);
         if (!user) {
           //If the user isn't found in the database, return a message
           return done(null, false, { message: "User not found" });

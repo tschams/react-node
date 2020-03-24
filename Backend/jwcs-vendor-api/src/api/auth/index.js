@@ -34,7 +34,7 @@ const controller = {
           },
         },
         USER_JWT_SECRET,
-        // jwt.sign options - https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback
+        // Options for jwt.sign - https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback
         {
           expiresIn: USER_JWT_EXPIRES,
         },
@@ -45,6 +45,7 @@ const controller = {
         token,
         user: {
           vendorId: user.vendorId,
+          vendorName: user.vendorName,
           id: user.id,
           email: user.email,
           roles: user.roles,
