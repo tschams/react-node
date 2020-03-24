@@ -1,6 +1,7 @@
 import { Spec } from "../../lib/openapi";
 
 export default Spec.controller("todos", {
+  roles: ["manager"],
   description: "TODOs controller.",
   operations: {
     get: Spec.op("getItems", {

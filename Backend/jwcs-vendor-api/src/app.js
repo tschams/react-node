@@ -65,11 +65,16 @@ new OpenApiValidator({
         // x-security-roles...
         const isAuth = await passportAuthJWT(req);
         if (!isAuth) {
-          return isAuth;
+          return false;
         }
-        console.log("REQUIRED ROLES: ", req.openapi.schema["x-security-roles"]);
-        console.log("USER: ", req.user);
-        // TODO: Get roles from req.user and check against x-security-roles.
+        const routeRoles = req.openapi.schema["x-security-roles"];
+        if (routeRoles) {
+          // console.log("REQUIRED ROLES: ", routeRoles);
+          // console.log("USER: ", req.user);
+          const userRoles = req.user.roles;
+          // Return true if at least one routeRoles exists in userRoles.
+          return routeRoles.some(role => userRoles.includes(role));
+        }
         return true;
       },
     },

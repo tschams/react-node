@@ -13,6 +13,16 @@ export const Vendor = {
     return row;
   },
 
+  async getForUserLogin(id: number): Promise<Vendor> {
+    const row = await mainDb("Vendor")
+      .first()
+      .select("name")
+      .where({
+        id,
+      });
+    return row;
+  },
+
   async listAll(): Promise<Vendor[]> {
     return mainDb("Vendor").select();
   },
@@ -29,5 +39,5 @@ export const Vendor = {
       .where({ id })
       .update(updateValues);
     return row;
-  }
-}
+  },
+};

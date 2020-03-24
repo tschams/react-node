@@ -2,8 +2,9 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { ExtractJwt, Strategy as JWTStrategy } from "passport-jwt";
 // Local
-import { PasswordUtils } from "../lib/security/passwords";
+import { USER_JWT_SECRET } from "../config";
 import { VendorUser as UserModel } from "../db";
+import { PasswordUtils } from "../lib/security/passwords";
 
 //Create a passport middleware to handle user registration?? Not sure...
 // passport.use(
@@ -37,7 +38,7 @@ passport.use(
     async (email, password, done) => {
       try {
         //Find the user associated with the email provided by the user
-        const user = await UserModel.findByEmail(email);
+        const user = await UserModel.findForLogin(email);
         if (!user) {
           //If the user isn't found in the database, return a message
           return done(null, false, { message: "User not found" });
@@ -63,7 +64,7 @@ passport.use(
   new JWTStrategy(
     {
       //secret we used to sign our JWT
-      secretOrKey: "TOP_SECRET",
+      secretOrKey: USER_JWT_SECRET,
       //we expect the user to send the token as a query parameter with the name 'secret_token'
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     },

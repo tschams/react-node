@@ -1,5 +1,7 @@
 import { PasswordUtils } from "../../../lib/security/passwords";
 import { mainDb } from "../mainDb";
+import { Vendor } from "./Vendor";
+import { VendorAuthRole } from "./VendorAuthRole";
 
 export interface VendorUser {
   id?: number;
@@ -18,6 +20,11 @@ export interface VendorUser {
   lockoutEnd?: Date | string;
   lockoutEnabled?: boolean;
   accessFailedCount?: number;
+
+  // Input and related data
+
+  roles?: string[];
+  vendorName?: string;
 }
 
 export const VendorUser = {
@@ -67,11 +74,16 @@ export const VendorUser = {
     return user;
   },
 
-  async findByEmail(email: string): Promise<VendorUser> {
+  async findForLogin(email: string): Promise<VendorUser> {
     const normalizedEmail = (email || "").trim().toUpperCase();
-    return mainDb("VendorUser")
-      .where({ normalizedEmail })
-      .first();
+    const user: VendorUser = await mainDb("VendorUser")
+      .first()
+      .where({ normalizedEmail });
+    const roles = await VendorAuthRole.findRoleNamesByUserId(user.id);
+    user.roles = roles.map(r => r.name);
+    const vendor = await Vendor.getForUserLogin(user.vendorId);
+    user.vendorName = vendor.name;
+    return user;
   },
 
   async getAll(): Promise<VendorUser[]> {
