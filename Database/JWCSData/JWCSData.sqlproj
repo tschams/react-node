@@ -76,5 +76,6 @@
     <Build Include="dbo\Tables\VendorUserToken.sql" />
     <Build Include="dbo\Tables\VendorTodo.sql" />
     <Build Include="dbo\Tables\Vendor.sql" />
+    <Build Include="Scripts\UpdateForDevs_20200324a.sql" />
   </ItemGroup>
 </Project>
