@@ -158,7 +158,7 @@ function _MainMenu() {
         if (iOS) {
           // Prevent swipe back navigation from showing an open menu.
           Navigation.delayed(item.url, duration.leavingScreen + 50);
-        } else if (item.text === "Collapse") {
+        } else if (item === menuItems.lastItem) {
           dispatch(PrefActions.toggleOpenNav());
         } else {
           Navigation.go(item.url);
@@ -180,7 +180,6 @@ function _MainMenu() {
            * the `Navigation.onRouteChanged` event handler...
            */
           const isActive = Navigation.isActive(url, item.urlActiveIf);
-          const lastIndex = menuItems.length-1;
           return (
             <div key={text} >
               {i === 1 && <Divider />}
@@ -189,7 +188,7 @@ function _MainMenu() {
                 className={clsx(
                   classes.menuListItem,
                   isActive && classes.menuListItemSelected,
-                  !isActive && i !== 0 && i !== lastIndex && classes.menuListItemHoverAndActive
+                  !isActive && i !== 0 && i !== menuItems.lastIndex && classes.menuListItemHoverAndActive
                 )}
                 onClick={onMenuItemClick(item)}
               >
