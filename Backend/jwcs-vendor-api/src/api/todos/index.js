@@ -1,5 +1,4 @@
-import { timeoutAsync } from "../../lib/utils";
-// import { VendorTodoItem } from "../../db";
+import { VendorTodo } from "../../db";
 
 /**
  * @typedef {import("express").Request} Request
@@ -9,12 +8,43 @@ import { timeoutAsync } from "../../lib/utils";
 
 /** @type {Controller} */
 const controller = {
-  async getItems(req, res) {
-    // const items = await VendorTodoItem.getAll();
-    await timeoutAsync();
-    const items = [{ id: 1, text: "Item 1." }];
+  async createItem(req, res) {
+    // console.log("QUERY: ", req.query);
+    // console.log("BODY: ", req.body);
+    const { vendorId, id: userId } = req.user;
+    const item = await VendorTodo.create({
+      ...req.body,
+      vendorId,
+      createdByVendorUserId: userId,
+      updatedByVendorUserId: userId,
+    });
+    res.json({
+      item,
+    });
+  },
+  async listAll(req, res) {
+    const items = await VendorTodo.listForVendor({
+      vendorId: req.user.vendorId,
+    });
     res.json({
       items,
+    });
+  },
+  async removeItem(req, res) {
+    await VendorTodo.remove(req.user.vendorId, req.params.id);
+    res.status(200).end();
+  },
+  async updateItem(req, res) {
+    const { id: itemId } = req.params;
+    const { vendorId, id: userId } = req.user;
+    const item = await VendorTodo.update({
+      ...req.body,
+      id: itemId,
+      vendorId,
+      updatedByVendorUserId: userId,
+    });
+    res.json({
+      item,
     });
   },
 };
