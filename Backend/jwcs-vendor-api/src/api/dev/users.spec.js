@@ -4,9 +4,11 @@ import { Spec } from "../../lib/openapi";
 export default __DEV__
   ? Spec.controller("dev/users", {
       description:
-        "Development user administration. Initialize your first user here.",
+        "User administration for developers. " +
+        "Initialize your first user here.",
       operations: {
         get: Spec.op("getUsers", {
+          summary: "Get All Users",
           responses: {
             200: Spec.response("OK"),
           },
@@ -14,8 +16,10 @@ export default __DEV__
         post: Spec.op("createUser", {
           summary: "Create User",
           description:
-            "Creates a new user. " +
-            "*Optionally* supply the first role to add them to.",
+            "Create a **Vendor** first if one doesn't exist. " +
+            "Set vendorId here.\n\n" +
+            "*Optionally* supply an authorization role.\n\n" +
+            "**REMOVE** the `role` property if not assigning a specific role.",
           requestBody: Spec.jsonRequestBodyObject({
             vendorId: { type: "integer" },
             email: { type: "string", format: "email" },
@@ -32,7 +36,7 @@ export default __DEV__
         getAuthRoles: Spec.op("getAuthRoles", {
           path: "roles", // e.g. /dev/users/roles
           type: "get",
-          summary: "Gets a list of authorization roles.",
+          summary: "Gets Authorization Roles",
           responses: {
             200: Spec.response("OK"),
           },
@@ -41,7 +45,7 @@ export default __DEV__
         postAuthRole: Spec.op("createAuthRole", {
           path: "roles",
           type: "post",
-          summary: "Creates a authorization role.",
+          summary: "Create Authorization Role",
           requestBody: Spec.jsonRequestBodyObject({
             name: { type: "string" },
           }),
