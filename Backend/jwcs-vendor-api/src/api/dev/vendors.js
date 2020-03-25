@@ -24,8 +24,8 @@ const controller = {
   },
   async update(req, res) {
     const item = await Vendor.update({
-      id: req.params.id,
       ...req.body,
+      id: req.params.id,
     });
     res.json({
       item,

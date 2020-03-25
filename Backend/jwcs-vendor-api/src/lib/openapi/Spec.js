@@ -267,6 +267,54 @@ export const Spec = {
   },
 
   /**
+   * Creates an OpenAPI parameter object to put in your list of
+   * `parameters: []`.
+   * @typedef {object} APIParamProps
+   * @property {string} [description] Defaults to the param `name`.
+   * @property {boolean} [required] Defaults to `true`.
+   * @property {any} [schema] More OpenAPI Schema properties.
+   *
+   * @param {string} name Name of the param.
+   * @param {"cookie"|"path"|"query"} [from] Defaults to `"path"`.
+   * Gets mapped to OpenAPI `"in"`.
+   * @param {string} [type] Defaults to `"string"`.
+   * @param {APIParamProps} [props] More OpenAPI param properties.
+   */
+  param(
+    name,
+    from = "path",
+    type = "string",
+    { description = name, required = false, schema, ...otherParamProps } = {},
+  ) {
+    return {
+      description,
+      in: from,
+      name,
+      required,
+      schema: {
+        type,
+        ...schema,
+      },
+      ...otherParamProps,
+    };
+  },
+  /**
+   * Creates an OpenAPI `"path"` parameter object to put in your list of
+   * `parameters: []`.
+   * @param {string} name Name of the param.
+   * @param {string} [type] Defaults to `"string"`.
+   * @param {APIParamProps} [props] More OpenAPI param properties.
+   */
+  pathParam(name, type = "string", props) {
+    // Path props should be `required` by default.
+    props = {
+      required: true,
+      ...props,
+    };
+    return Spec.param(name, "path", type, props);
+  },
+
+  /**
    * Shortcut to specify OpenAPI parameters array.
    * @param {{[name:string]:string}} params Query parameter types by name.
    * @param {boolean} [required]

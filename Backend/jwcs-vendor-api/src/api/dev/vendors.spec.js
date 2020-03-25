@@ -24,17 +24,11 @@ export default __DEV__
           // roles: ["owner"],
         }),
         put: Spec.op("update", {
-          path: "{id}",
+          path: "{id}", // e.g. "/api/v1/dev/vendors/{id}"
           summary: "Update Vendor",
           description: "Updates a vendor.",
           parameters: [
-            {
-              in: "path",
-              name: "id",
-              schema: { type: "integer" },
-              required: true,
-              description: "Vendor Id",
-            }
+            Spec.pathParam("id", "integer", { description: "Vendor Id" }),
           ],
           requestBody: Spec.jsonRequestBodyObject({
             name: { type: "string", maxLength: 75 },
