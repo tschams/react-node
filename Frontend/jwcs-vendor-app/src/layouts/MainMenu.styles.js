@@ -5,50 +5,27 @@ const drawerWidthClosed = 66;
 
 export const useStyles = makeStyles(
   theme => ({
-    appBar(props) {
-      return {
-        marginLeft: props.isNavOpen ? drawerWidth : drawerWidthClosed,
-        [theme.breakpoints.up("md")]: {
-          width: `calc(100% - ${
-            props.isNavOpen ? drawerWidth : drawerWidthClosed
-          }px)`,
-        },
-      };
-    },
     drawer(props) {
       return {
-        [theme.breakpoints.up("md")]: {
-          width: props.isNavOpen ? drawerWidth : drawerWidthClosed,
-          flexShrink: 0,
-        },
+        width: props.isNavOpen ? drawerWidth : drawerWidthClosed,
+        flexShrink: 0,
       };
     },
     drawerPaper(props) {
       return {
-        color: theme.palette.grey[700],
+        color: theme.palette.primary.contrastText,
         width: props.isNavOpen ? drawerWidth : drawerWidthClosed,
         whiteSpace: "nowrap",
-        [theme.breakpoints.up("sm")]: {
-          color: theme.palette.primary.contrastText,
-          // backgroundColor: theme.palette.primary.dark,
-          // backgroundColor: "#FFFFFF",
-        },
       };
     },
     menuRoot: {
       backgroundColor: "#FFFFFF",
       height: "100%",
       overflow: "hidden",
-      [theme.breakpoints.down("sm")]: {
-        backgroundColor: "white",
-      },
     },
     menuList: {
       height: "100%",
       padding: 0,
-      [theme.breakpoints.down("sm")]: {
-        backgroundColor: "white",
-      },
       "& > div:last-child > div, & > div:first-child > div": {
         backgroundColor: "#FFFFFF",
         "&:hover": {
@@ -70,12 +47,6 @@ export const useStyles = makeStyles(
       },
       "& > div:nth-child(2) > div": {
         marginTop: ".5rem"
-      },
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-      [theme.breakpoints.up("md")]: {
-        display: "none",
       },
     },
     block: {
