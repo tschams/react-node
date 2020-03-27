@@ -1,6 +1,9 @@
 import { Spec } from "../../lib/openapi";
 
 export default Spec.controller("todos", {
+  //
+  // SECURITY: User must have the "manager" role to do anything with Todos.
+  //
   roles: ["manager"],
   description: "TODOs controller.",
   operations: {
@@ -27,6 +30,10 @@ export default Spec.controller("todos", {
       responses: {
         200: Spec.response("OK"),
       },
+      //
+      // SECURITY: User must have the "supervisor" role to delete a Todo.
+      //
+      roles: ["supervisor"],
     }),
     put: Spec.op("updateItem", {
       path: "{id}", // e.g. "/api/v1/todos/{id}"
