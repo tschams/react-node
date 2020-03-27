@@ -40,6 +40,58 @@ app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(passport.initialize({ userProperty: "user" }));
 
+/** Start the application. */
+export async function start() {
+  // Setup express-openapi-validator
+  // See https://github.com/cdimascio/express-openapi-validator#readme
+  const validator = new OpenApiValidator({
+    apiSpec: apiSpec,
+    operationHandlers: `${__dirname}/api`,
+    validateRequests: true,
+    validateResponses: false,
+    validateSecurity: {
+      handlers: { AuthJWT },
+    },
+  });
+
+  // Create an async promise chain starting with installing the validator.
+  let starting = validator.install(app);
+
+  // Catch development errors, print help for invalid Open-API specifications.
+  if (__DEV__) {
+    starting = starting.catch(writeDeveloperErrorHelp);
+  }
+
+  // After validator installs and adds routes from the apiSpec, add the final
+  // app handlers for NotFound (404) and Error (500).
+  // Then start the server listening for requests. If there's an error during
+  // these steps, call `process.exit()`.
+  starting = starting
+    .then(() => {
+      app.use((req, res) => {
+        res.status(404).json({ error: 404, message: "Not found." });
+      });
+
+      app.use(function(err, req, res, next) {
+        const { errors, stack, status = 500 } = err;
+        res.status(status).json({
+          error: status,
+          message: "Application error.",
+          errors,
+          stack: __DEV__ ? stack : undefined,
+        });
+      });
+
+      return listen(__DEV__);
+    })
+    .catch(err => {
+      process.exit(1);
+    });
+
+  // Execute all of the steps setup above and wait here for them to finish.
+  await starting;
+}
+
 /**
  * JWT authentication/authorization security check.
  * Returns true if user logged in and if user has role that is found in the
@@ -102,57 +154,6 @@ function passportAuthJWT(req) {
     });
     doAuth(req);
   });
-}
-
-export async function start() {
-  // Setup express-openapi-validator
-  // See https://github.com/cdimascio/express-openapi-validator#readme
-  const validator = new OpenApiValidator({
-    apiSpec: apiSpec,
-    operationHandlers: `${__dirname}/api`,
-    validateRequests: true,
-    validateResponses: false,
-    validateSecurity: {
-      handlers: { AuthJWT },
-    },
-  });
-
-  // Create an async promise chain starting with installing the validator.
-  let starting = validator.install(app);
-
-  // Catch development errors, print help for invalid Open-API specifications.
-  if (__DEV__) {
-    starting = starting.catch(writeDeveloperErrorHelp);
-  }
-
-  // After validator installs and adds routes from the apiSpec, add the final
-  // app handlers for NotFound (404) and Error (500).
-  // Then start the server listening for requests. If there's an error during
-  // these steps, call `process.exit()`.
-  starting = starting
-    .then(() => {
-      app.use((req, res) => {
-        res.status(404).json({ error: 404, message: "Not found." });
-      });
-
-      app.use(function(err, req, res, next) {
-        const { errors, stack, status = 500 } = err;
-        res.status(status).json({
-          error: status,
-          message: "Application error.",
-          errors,
-          stack: __DEV__ ? stack : undefined,
-        });
-      });
-
-      return listen(__DEV__);
-    })
-    .catch(err => {
-      process.exit(1);
-    });
-
-  // Execute all of the steps setup above and wait here for them to finish.
-  await starting;
 }
 
 function useAPIDocs() {
