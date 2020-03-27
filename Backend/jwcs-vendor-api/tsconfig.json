@@ -14,7 +14,7 @@
     // "skipLibCheck": true,
     // "strict": true,
     // "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
+    "resolveJsonModule": false,
     "paths": {
       "*": [
         "node_modules/*",
