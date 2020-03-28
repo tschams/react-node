@@ -54,5 +54,5 @@ export function timeoutAsync(timeout = 350, handler = noHandler, ...args) {
 }
 
 export function updateStamp() {
-  crypto.pseudoRandomBytes(32).toString("hex");
+  return crypto.pseudoRandomBytes(32).toString("hex");
 }

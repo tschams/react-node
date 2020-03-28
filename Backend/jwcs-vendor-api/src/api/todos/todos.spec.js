@@ -7,7 +7,7 @@ export default Spec.controller("todos", {
   roles: ["manager"],
   description: "TODOs controller.",
   operations: {
-    post: Spec.op("createItem", {
+    post: Spec.op("create", {
       summary: "Create Todo Item",
       requestBody: Spec.jsonRequestBodyObject({
         title: { type: "string" },
@@ -24,7 +24,17 @@ export default Spec.controller("todos", {
         200: Spec.response("OK"),
       },
     }),
-    delete: Spec.op("removeItem", {
+    getById: Spec.op("getById", {
+      summary: "Get Todo by Id",
+      path: "{id}",
+      type: "get",
+      parameters: [Spec.pathParam("id", "integer", { description: "Todo Id" })],
+      responses: {
+        200: Spec.response("OK"),
+      },
+    }),
+    delete: Spec.op("remove", {
+      summary: "Remove Todo by Id",
       path: "{id}",
       parameters: [Spec.pathParam("id", "integer", { description: "Todo Id" })],
       responses: {
@@ -35,7 +45,8 @@ export default Spec.controller("todos", {
       //
       roles: ["supervisor"],
     }),
-    put: Spec.op("updateItem", {
+    put: Spec.op("update", {
+      summary: "Update Todo by Id",
       path: "{id}", // e.g. "/api/v1/todos/{id}"
       parameters: [Spec.pathParam("id", "integer", { description: "Todo Id" })],
       requestBody: Spec.jsonRequestBodyObject({

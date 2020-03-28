@@ -168,14 +168,18 @@ export const Spec = {
       // Get our custom properties and the rest to pass onto OpenAPI.
       let {
         operationId,
-        path: opPath = operationId, // default path is same as operationId.
+        path: opPath,
         roles: opRoles = roles,
         type: opType = opKey,
         ...op
       } = operations[opKey];
-      if (opTypes.includes(opKey)) {
-        // Use controller path as the default when opKey is an opType.
-        opPath = path;
+      if (!opPath) {
+        if (opTypes.includes(opKey)) {
+          // Use controller path as the default when opKey is an opType.
+          opPath = path;
+        } else {
+          opPath = operationId;
+        }
       }
       // Validate opType. Exit if invalid.
       if (!opTypes.includes(opType)) {
@@ -244,18 +248,19 @@ export const Spec = {
 
   get() {},
 
-  jsonRequestBodyObject(properties) {
+  jsonRequestBodyObject(properties, schema = { additionalProperties: false }) {
     return {
-      content: Spec.jsonContentObject(properties),
+      content: Spec.jsonContentObject(properties, schema),
     };
   },
 
-  jsonContentObject(properties) {
+  jsonContentObject(properties, schema = { additionalProperties: false }) {
     return {
       "application/json": {
         schema: {
           type: "object",
           properties,
+          ...schema,
         },
       },
     };
