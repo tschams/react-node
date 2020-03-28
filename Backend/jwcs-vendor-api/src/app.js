@@ -80,6 +80,10 @@ export async function start() {
           errors,
           stack: __DEV__ ? stack : undefined,
         });
+        // TODO: In production, send errors somewhere better, like an error
+        // logging service: Sentry.io, Redis, Graylog, etc.
+        console.log(err);
+        console.log("");
       });
 
       return listen(__DEV__);

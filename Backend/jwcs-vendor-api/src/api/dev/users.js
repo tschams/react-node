@@ -1,13 +1,7 @@
+import { apiController } from "../../lib/utils";
 import { VendorAuthRole, VendorUser } from "../../db";
 
-/**
- * @typedef {import("express").Request} Request
- * @typedef {import("express").Response} Response
- * @typedef {{[operation:string]:(req:Request,res:Response)=>void}} Controller
- */
-
-/** @type {Controller} */
-const controller = {
+export default apiController({
   async createAuthRole(req, res) {
     const item = await VendorAuthRole.create(req.body);
     res.json({
@@ -61,5 +55,4 @@ const controller = {
       items,
     });
   },
-};
-export default controller;
+});

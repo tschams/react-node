@@ -1,13 +1,7 @@
+import { apiController } from "../../lib/utils";
 import { VendorTodo } from "../../db";
 
-/**
- * @typedef {import("express").Request} Request
- * @typedef {import("express").Response} Response
- * @typedef {{[operation:string]:(req:Request,res:Response)=>void}} Controller
- */
-
-/** @type {Controller} */
-const controller = {
+export default apiController({
   async createItem(req, res) {
     // console.log("QUERY: ", req.query);
     // console.log("BODY: ", req.body);
@@ -46,5 +40,4 @@ const controller = {
       item,
     });
   },
-};
-export default controller;
+});
