@@ -30,7 +30,8 @@ export const TodoState = {
       // sortedItemIds: [3, 2, 1]
       // #endregion
       const items = [...state.items];
-      const index = items.findIndex(it => it.id === item.id);
+      const findId = item.id;
+      const index = items.findIndex(it => it.id === findId);
       items[index] = item;
       return {
         ...state,

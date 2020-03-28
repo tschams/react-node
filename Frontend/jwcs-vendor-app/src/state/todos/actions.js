@@ -1,6 +1,5 @@
-import { authGet } from "../../lib";
+import { authGet, authPut, authPost } from "../../lib";
 import { UIActions } from "../ui/actions";
-import { timeoutAsync } from "../../lib";
 
 const type = {
   TODO_ITEM_UPDATED: "TODO_ITEM_UPDATED",
@@ -11,26 +10,18 @@ const type = {
 export const TodoActions = {
   type,
 
-  addItem(item) {
+  addItem(newItem) {
     return async (dispatch, getState) => {
       dispatch(UIActions.setUILoading(true));
-
-      // TODO: Send POST to server to create item.
-
-      // Simulate server creating new item and id.
-      await timeoutAsync(1000);
-      const maxId = itemsFromServer.reduce(
-        (id, item) => (item.id > id ? item.id : id),
-        0,
-      );
-      const newItem = {
-        ...item,
-        id: maxId + 1,
-      };
-      itemsFromServer.push({ ...newItem });
-
+      const response = await authPost("/todos", {
+        title: newItem.title,
+        done: newItem.done,
+      });
+      const {
+        data: { item },
+      } = response;
       // Put item returned from server into the TodoState.
-      dispatch(TodoActions.addedItems([newItem]));
+      dispatch(TodoActions.addedItems([item]));
       dispatch(UIActions.setUILoading(false));
     };
   },
@@ -40,24 +31,10 @@ export const TodoActions = {
   },
 
   getItemById(id) {
-    console.log("Getting Todo by id: ", id);
     return async dispatch => {
       dispatch(UIActions.setUILoading(true));
 
-      // const response = await authGet(`/todos/${id}`);
-      // TODO: Make ajax call as shown above and delete mock response below.
-
-      // Simulate server getting item.
-      await timeoutAsync(1000);
-      const response = {
-        error: undefined,
-        data: {
-          item: itemsFromServer
-            .filter(item => item.id === id)
-            // Copy items.
-            .map(item => ({ ...item }))[0],
-        },
-      };
+      const response = await authGet(`/todos/${id}`);
       // TODO: Error handling...
       const {
         data: { item },
@@ -81,7 +58,6 @@ export const TodoActions = {
   },
 
   searchItems({ title } = {}) {
-    console.log("Searching for Todo title: ", title);
     return async dispatch => {
       dispatch(UIActions.setUILoading(true));
 
@@ -106,33 +82,31 @@ export const TodoActions = {
         todo: { items },
       } = getState();
       const item = items.find(it => it.id === id);
-      const { done, ...props } = item;
+      console.log("FOUND: ", item);
       return dispatch(
-        TodoActions.updateItem(
-          {
-            ...props,
-            done: !done,
-          },
-          250,
-        ),
+        TodoActions.updateItem({
+          ...item,
+          done: !item.done,
+        }),
       );
     };
   },
 
-  updateItem({ id, title, done }, simulateDelay = 1000) {
+  updateItem({ id, title, done, concurrencyStamp }) {
     return async dispatch => {
       dispatch(UIActions.setUILoading(true));
 
-      // TODO: Send PUT to server, receive newly updated item.
-
-      // Simulate server.
-      await timeoutAsync(simulateDelay);
-      const serverItem = itemsFromServer.find(item => item.id === id);
-      serverItem.title = title;
-      serverItem.done = done;
+      const response = await authPut(`/todos/${id}`, {
+        title,
+        done,
+        concurrencyStamp,
+      });
+      const {
+        data: { item },
+      } = response;
 
       // Load new item from server into the TodoState.
-      dispatch(TodoActions.updatedItem({ ...serverItem }));
+      dispatch(TodoActions.updatedItem(item));
       dispatch(UIActions.setUILoading(false));
     };
   },
@@ -141,11 +115,3 @@ export const TodoActions = {
     return { type: type.TODO_ITEM_UPDATED, item };
   },
 };
-
-/** Mock items. */
-const itemsFromServer = [
-  { id: 1, title: "Boil water.", done: true },
-  { id: 2, title: "Grind coffee beans.", done: false },
-  { id: 3, title: "Put coffee grinds in filter.", done: false },
-  { id: 4, title: "Pour hot water over coffee grinds.", done: false },
-];

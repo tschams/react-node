@@ -17,6 +17,7 @@ function _EditTodoForm({ id, onCancel, onComplete }) {
   const isMobile = useMobile();
   const dispatch = useDispatch();
 
+  const [loadedItem, setLoadedItem] = React.useState();
   const [title, onChangeTitle, setTitle] = useInputValue();
   const [done, onChangeDone, setDone] = useInputCheck();
   const [errFields, setErrFields] = React.useState({});
@@ -33,6 +34,7 @@ function _EditTodoForm({ id, onCancel, onComplete }) {
       }
       dispatch(
         TodoActions.saveItem({
+          ...loadedItem,
           id,
           title,
           done,
@@ -40,12 +42,13 @@ function _EditTodoForm({ id, onCancel, onComplete }) {
       );
       onComplete();
     },
-    [id, title, done, onComplete, dispatch],
+    [id, title, done, loadedItem, onComplete, dispatch],
   );
 
   useOnMount(() => {
     async function loadItem() {
       const { item } = await dispatch(TodoActions.getItemById(id));
+      setLoadedItem(item);
       setTitle(item.title);
       setDone(item.done);
     }
