@@ -44,7 +44,7 @@ export const TodoActions = {
     return async dispatch => {
       dispatch(UIActions.setUILoading(true));
 
-      // const response = await authGet(`/api/todos/${id}`);
+      // const response = await authGet(`/todos/${id}`);
       // TODO: Make ajax call as shown above and delete mock response below.
 
       // Simulate server getting item.
@@ -86,7 +86,7 @@ export const TodoActions = {
       dispatch(UIActions.setUILoading(true));
 
       const response = await authGet([
-        "todos",
+        "/todos",
         {
           title,
         },
