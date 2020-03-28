@@ -49,11 +49,16 @@ export default Spec.controller("todos", {
       summary: "Update Todo by Id",
       path: "{id}", // e.g. "/api/v1/todos/{id}"
       parameters: [Spec.pathParam("id", "integer", { description: "Todo Id" })],
-      requestBody: Spec.jsonRequestBodyObject({
-        title: { type: "string" },
-        done: { type: "boolean" },
-        concurrencyStamp: { type: "string" },
-      }),
+      requestBody: Spec.jsonRequestBodyObject(
+        {
+          title: { type: "string" },
+          done: { type: "boolean" },
+          concurrencyStamp: { type: "string" },
+        },
+        {
+          required: ["concurrencyStamp"],
+        },
+      ),
       responses: {
         200: Spec.response("OK"),
       },

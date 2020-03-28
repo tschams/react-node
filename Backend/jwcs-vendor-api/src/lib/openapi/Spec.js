@@ -248,18 +248,29 @@ export const Spec = {
 
   get() {},
 
-  jsonRequestBodyObject(properties, schema = { additionalProperties: false }) {
+  jsonRequestBodyObject(
+    properties,
+    { additionalProperties = false, type = "object", ...schema } = {},
+  ) {
     return {
-      content: Spec.jsonContentObject(properties, schema),
+      content: Spec.jsonContentObject(properties, {
+        type,
+        additionalProperties,
+        ...schema,
+      }),
     };
   },
 
-  jsonContentObject(properties, schema = { additionalProperties: false }) {
+  jsonContentObject(
+    properties,
+    { additionalProperties = false, type = "object", ...schema } = {},
+  ) {
     return {
       "application/json": {
         schema: {
-          type: "object",
+          type,
           properties,
+          additionalProperties,
           ...schema,
         },
       },
