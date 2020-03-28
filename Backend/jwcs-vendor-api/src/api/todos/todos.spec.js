@@ -17,9 +17,9 @@ export default Spec.controller("todos", {
         200: Spec.response("OK"),
       },
     }),
-    get: Spec.op("listAll", {
-      summary: "Get Todos",
-      // parameters: Spec.query({ sendInvite: "boolean" }),
+    get: Spec.op("find", {
+      summary: "Find Todos by Vendor",
+      parameters: Spec.query({ title: "string?" }),
       responses: {
         200: Spec.response("OK"),
       },

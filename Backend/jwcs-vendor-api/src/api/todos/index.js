@@ -22,10 +22,9 @@ const controller = {
       item,
     });
   },
-  async listAll(req, res) {
-    const items = await VendorTodo.listForVendor({
-      vendorId: req.user.vendorId,
-    });
+  async find(req, res) {
+    const { vendorId } = req.user;
+    const items = await VendorTodo.findForVendor(vendorId, req.query);
     res.json({
       items,
     });

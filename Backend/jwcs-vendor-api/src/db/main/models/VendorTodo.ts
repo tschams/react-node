@@ -23,10 +23,26 @@ export const VendorTodo = {
     return row;
   },
 
-  async listForVendor(filter?: VendorTodo): Promise<VendorTodo[]> {
-    return await mainDb("VendorTodo")
+  async findForVendor(
+    vendorId: number,
+    filter?: VendorTodo,
+  ): Promise<VendorTodo[]> {
+    let query = mainDb("VendorTodo")
       .select("*")
-      .where(filter);
+      .where({ vendorId });
+
+    if (filter) {
+      if (filter.title) {
+        query = query.andWhere("title", "like", `%${filter.title}%`);
+      }
+      if (filter.done) {
+        query = query.andWhere({ done: filter.done });
+      }
+    }
+
+    query = query.orderBy("id");
+
+    return await query;
   },
 
   async remove(vendorId: number, id: number): Promise<boolean> {
