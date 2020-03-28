@@ -1,3 +1,4 @@
+import { authGet } from "../../lib";
 import { UIActions } from "../ui/actions";
 import { timeoutAsync } from "../../lib";
 
@@ -84,25 +85,12 @@ export const TodoActions = {
     return async dispatch => {
       dispatch(UIActions.setUILoading(true));
 
-      // const response = await authGet([
-      //   "/api/todos/search",
-      //   {
-      //     title,
-      //   },
-      // ]);
-      // TODO: Make ajax call as shown above and delete mock response below.
-
-      // Simulate server finding items.
-      await timeoutAsync(1000);
-      const response = {
-        error: undefined,
-        data: {
-          items: itemsFromServer
-            .filter(item => !title || item.title.includes(title))
-            // Copy items.
-            .map(item => ({ ...item })),
+      const response = await authGet([
+        "todos",
+        {
+          title,
         },
-      };
+      ]);
       // TODO: Error handling...
       const {
         data: { items },
