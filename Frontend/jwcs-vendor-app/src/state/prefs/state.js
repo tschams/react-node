@@ -12,6 +12,7 @@ export const PrefState = {
   persist: true,
   defaults: {
     dialogEdit: true,
+    navOpen: window.innerWidth >= 960 ? true : false,
   },
   handlers: {
     [AuthActions.type.LOGOUT_SUCCESS](state, action) {
