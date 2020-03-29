@@ -2,7 +2,6 @@ import "./polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider as ReduxProvider } from "react-redux";
-import jwtDecode from "jwt-decode";
 import { create as createJSS } from "jss";
 import {
   CssBaseline,
@@ -16,7 +15,7 @@ import DateFns from "@date-io/date-fns";
 import { REACT_APP_SITE_TITLE } from "./config";
 import { ErrorSentry } from "./components";
 import { AppRouter, hasAuthRequestToken, setAuthRequestToken } from "./lib";
-import { AppArea } from "./pages";
+import { AppArea, Pages } from "./pages";
 import { store } from "./state/store";
 
 // Example to use service worker / progressive web app (PWA):
@@ -27,10 +26,10 @@ import { defaultTheme } from "./themes";
 import "./assets/css/styles.css";
 
 /**
- * Decoded authorization data.
- * @type {{userId:string, roles?:string[]}}
+ * Authorized user data.
+ * @type {{id:number, vendorId:number, email:string, roles?:string[]}}
  */
-let authTokenData;
+let authUser;
 /**
  * JSS config. Sets insertion point so JSS styles are inserted BEFORE our own,
  * so that we don't have to use `!important` everywhere to override JSS
@@ -43,14 +42,17 @@ const jss = createJSS({
 });
 
 AppRouter.configure({
-  loginCheck(page) {
+  loginCheck(page, result) {
     if (!hasAuthRequestToken()) {
       return false;
     }
     const { roles: pageRoles } = page;
-    if (pageRoles) {
-      const { roles: authRoles } = authTokenData;
-      return authRoles && pageRoles.some(role => authRoles.includes(role));
+    if (pageRoles && pageRoles.length > 0) {
+      const { roles: authRoles } = authUser;
+      if (!authRoles || !pageRoles.some(role => authRoles.includes(role))) {
+        result.redirectTo = Pages.main.notAuthorized.path;
+        return false;
+      }
     }
     return true;
   },
@@ -83,22 +85,20 @@ function main() {
  * Loads the token from storage or redux and registers it with `AuthRequest`.
  */
 function preloadAuthToken() {
-  if (authTokenData) {
+  if (authUser) {
     return;
   }
   const state = store.getState();
-  const {
-    auth: { email, company = {}, user = {}, expiration, token } = {},
-  } = state;
+  const { auth: { user, expiration, token } = {} } = state;
   if (token) {
     // NOTE: We only register telemetry user details here since the page reloads
     // after a login.
     ErrorSentry.setUser({
-      email,
-      id: `CompanyId=${company.id},UserId=${user.id}`,
-      username: `${user.fName} ${user.lName}`,
+      email: user.email,
+      id: user.id,
+      username: user.email,
     });
-    authTokenData = jwtDecode(token);
+    authUser = user;
     setAuthRequestToken(token, expiration);
   }
 }

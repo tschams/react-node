@@ -1,4 +1,5 @@
 import { HomePage } from "./HomePage";
+import { NotAuthorizedPage } from "./NotAuthorizedPage";
 import { NotFoundPage } from "./NotFoundPage";
 
 export const MainPages = {
@@ -8,6 +9,14 @@ export const MainPages = {
     title: "Home",
     type: "PAGE_HOME",
     view: HomePage,
+  },
+  notAuthorized: {
+    anon: true,
+    layout: null,
+    path: "/unauthorized",
+    title: "Not Authorized",
+    type: "PAGE_NOT_AUTHORIZED",
+    view: NotAuthorizedPage,
   },
   notFound: {
     anon: true,
