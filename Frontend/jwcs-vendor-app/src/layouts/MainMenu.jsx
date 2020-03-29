@@ -20,7 +20,7 @@ import {
 } from "../components";
 import { Navigation } from "../lib";
 import Pages from "../pages";
-import { useSelector, useDispatch, PrefActions, PrefSelectors, } from "../state";
+import { useSelector, useDispatch, UIActions, PrefActions, PrefSelectors, } from "../state";
 import { useStyles } from "./MainMenu.styles";
 import clsx from "clsx";
 import { REACT_APP_SITE_TITLE } from "../config";
@@ -132,7 +132,10 @@ function _MainMenu() {
 
   function onMenuItemClick(item) {
     if (item !== menuItems.lastItem) {
-    Navigation.go(item.url);
+      dispatch(UIActions.setUILoading(true));
+      Navigation.go(item.url);
+      //the following line definitely needs to be in a finally like code, what is the best way? besides are we catching all errors in this code block
+      return dispatch(UIActions.setUILoading(false));
     }
     dispatch(PrefActions.toggleOpenNav());
   }
