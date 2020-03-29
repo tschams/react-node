@@ -15,7 +15,8 @@ import {
   AccountingIcon,
   ReportsIcon,
   MarketingIcon,
-  ArrowIcon,
+  CollapseIcon,
+  ExpandIcon,
   CompanyLogoIcon
 } from "../components";
 import { Navigation } from "../lib";
@@ -25,72 +26,72 @@ import { useStyles } from "./MainMenu.styles";
 import clsx from "clsx";
 import { REACT_APP_SITE_TITLE } from "../config";
 
-function getItems() {
-  const menuItems = [
-    {
-      text: REACT_APP_SITE_TITLE,
-      icon: CompanyLogoIcon,
-    },
-    {
-      text: "Dashboard",
-      icon: DashboardIcon,
-      url: Pages.main.home.path,
-      urlActiveIf: {
-        exact: true,
-      },
-    },
-    {
-      text: "My Products",
-      icon: MyProductsIcon,
-      url: Pages.myProducts.home.path,
-      urlActiveIf: {
-        exact: true,
-      },
-    },
-    {
-      text: "Orders",
-      icon: OrdersIcon,
-      url: Pages.orders.home.path,
-      urlActiveIf: {
-        exact: true,
-      },
-    },
-    {
-      text: "Accounting",
-      icon: AccountingIcon,
-      url: Pages.accounting.home.path,
-      urlActiveIf: {
-        exact: true,
-      },
-    },
-    {
-      text: "Marketing",
-      icon: MarketingIcon,
-      url: Pages.marketing.home.path,
-      urlActiveIf: {
-        exact: true,
-      },
-    },
-    {
-      text: "Reports",
-      icon: ReportsIcon,
-      url: Pages.reports.home.path,
-        urlActiveIf: {
-        exact: true,
-      },
-    },
-    {
-      text: "Collapse",
-      icon: ArrowIcon,
-    },
-  ];
-
-  return {
-    menuItems,
-  };
-}
-
 function _MainMenu() {
+  function getItems() {
+    const menuItems = [
+      {
+        text: REACT_APP_SITE_TITLE,
+        icon: CompanyLogoIcon,
+      },
+      {
+        text: "Dashboard",
+        icon: DashboardIcon,
+        url: Pages.main.home.path,
+        urlActiveIf: {
+          exact: true,
+        },
+      },
+      {
+        text: "My Products",
+        icon: MyProductsIcon,
+        url: Pages.myProducts.home.path,
+        urlActiveIf: {
+          exact: true,
+        },
+      },
+      {
+        text: "Orders",
+        icon: OrdersIcon,
+        url: Pages.orders.home.path,
+        urlActiveIf: {
+          exact: true,
+        },
+      },
+      {
+        text: "Accounting",
+        icon: AccountingIcon,
+        url: Pages.accounting.home.path,
+        urlActiveIf: {
+          exact: true,
+        },
+      },
+      {
+        text: "Marketing",
+        icon: MarketingIcon,
+        url: Pages.marketing.home.path,
+        urlActiveIf: {
+          exact: true,
+        },
+      },
+      {
+        text: "Reports",
+        icon: ReportsIcon,
+        url: Pages.reports.home.path,
+          urlActiveIf: {
+          exact: true,
+        },
+      },
+      {
+        text: "Collapse",
+        icon: isNavOpen ? CollapseIcon : ExpandIcon,
+      },
+    ];
+
+    return {
+      menuItems,
+    };
+  }
+
   const isNavOpen = useSelector(PrefSelectors.navOpen);
   const dispatch = useDispatch();
 
