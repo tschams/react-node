@@ -23,11 +23,12 @@ import Pages from "../pages";
 import { useSelector, useDispatch, PrefActions, PrefSelectors, } from "../state";
 import { useStyles } from "./MainMenu.styles";
 import clsx from "clsx";
+import { REACT_APP_SITE_TITLE } from "../config";
 
 function getItems() {
   const menuItems = [
     {
-      text: "Streamlined AI",
+      text: REACT_APP_SITE_TITLE,
       icon: CompanyLogoIcon,
     },
     {
