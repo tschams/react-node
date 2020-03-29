@@ -131,16 +131,10 @@ function _MainMenu() {
   // #endregion
 
   function onMenuItemClick(item) {
-    if (!item.onClick) {
-      item.onClick = () => {
-        if (item === menuItems.lastItem) {
-          dispatch(PrefActions.toggleOpenNav());
-        } else {
-          Navigation.go(item.url);
-        }
-      };
+    if (item !== menuItems.lastItem) {
+    Navigation.go(item.url);
     }
-    return item.onClick;
+    dispatch(PrefActions.toggleOpenNav());
   }
 
   const menuContent = (
@@ -164,7 +158,7 @@ function _MainMenu() {
                   isActive && classes.menuListItemSelected,
                   !isActive && i !== 0 && i !== menuItems.lastIndex && classes.menuListItemHoverAndActive
                 )}
-                onClick={onMenuItemClick(item)}
+                onClick={() => onMenuItemClick(item)}
               >
                 <span
                   className={clsx(
