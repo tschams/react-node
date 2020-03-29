@@ -1,9 +1,12 @@
 import { TodoListPage } from "./TodoListPage";
 import { TodoEditPage } from "./TodoEditPage";
 
+const roles = ["manager"];
+
 export const TodoPages = {
   edit: {
     anon: false,
+    roles,
     path: "/todos/:id",
     title: "Todo",
     type: "PAGE_TODO_EDIT",
@@ -11,6 +14,7 @@ export const TodoPages = {
   },
   list: {
     anon: false,
+    roles,
     path: "/todos",
     title: "Todos",
     type: "PAGE_TODO_LIST",
