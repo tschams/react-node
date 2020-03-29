@@ -98,4 +98,38 @@ export const VendorUser = {
   async getAll(): Promise<VendorUser[]> {
     return mainDb("VendorUser").select();
   },
+
+  async assignAuthRoleToUser(roleName: string, id: number): Promise<string[]> {
+    const role = await VendorAuthRole.findByName(roleName);
+    if (!role) {
+      return undefined;
+    }
+    const roles = (await VendorAuthRole.findRoleNamesByUserId(id)).map(
+      r => r.name,
+    );
+    if (roles.map(name => name.toUpperCase()).includes(roleName.toUpperCase()))
+      return roles;
+    await mainDb("VendorUserRole").insert({
+      userId: id,
+      roleId: role.id,
+    });
+    return roles.concat(roleName);
+  },
+
+  async getAuthRolesOfUser(id: number): Promise<string[]> {
+    const roles = (await VendorAuthRole.findRoleNamesByUserId(id)).map(
+      r => r.name,
+    );
+    return roles;
+  },
+
+  async removeAuthRoleFromUser(roleName: string, id: number): Promise<void> {
+    const role = await VendorAuthRole.findByName(roleName);
+    if (!role) {
+      return;
+    }
+    await mainDb("VendorUserRole")
+      .delete()
+      .where({ userId: id, roleId: role.id });
+  },
 };

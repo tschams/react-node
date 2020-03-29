@@ -9,17 +9,11 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "build": "npm run build-ts",
+    "build": "npm run rm-build && npm run build-ts",
     "build-ts": "tsc",
-    "debug": "npm run build && npm run watch-debug",
-    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
-    "serve": "node dist/index.js",
-    "start": "nodemon --watch \"src/**/*\" --exec \"ts-node\" src/index.js",
-    "serve-debug": "nodemon dist/index.js",
-    "start-concurrently": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\"",
-    "watch": "nodemon dist/index.js",
-    "watch-node": "nodemon dist/index.js",
-    "watch-ts": "tsc -w"
+    "rm-build": "shx rm -rf dist/",
+    "start": "nodemon",
+    "start-production": "node dist/index.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -32,7 +26,6 @@
     "morgan": "^1.9.1",
     "mssql": "^6.2.0",
     "nodemailer": "^6.4.5",
-    "nodemon": "^2.0.2",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
@@ -55,6 +48,7 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
+    "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "shelljs": "^0.8.3",
     "shx": "^0.3.2",

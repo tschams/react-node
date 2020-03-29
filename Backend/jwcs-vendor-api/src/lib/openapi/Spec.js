@@ -167,11 +167,31 @@ export const Spec = {
     Object.keys(operations).forEach(opKey => {
       // Get our custom properties and the rest to pass onto OpenAPI.
       let {
-        path: opPath = path,
+        operationId,
+        path: opPath,
         roles: opRoles = roles,
         type: opType = opKey,
         ...op
       } = operations[opKey];
+      if (!opPath) {
+        if (opTypes.includes(opKey)) {
+          // Use controller path as the default when opKey is an opType.
+          opPath = path;
+        } else {
+          opPath = operationId;
+        }
+      }
+      // Validate opType. Exit if invalid.
+      if (!opTypes.includes(opType)) {
+        console.log("\x1b[35m%s\x1b[0m", `\nInvalid API spec: ${opKey}`);
+        console.log(
+          "\x1b[36m%s\x1b[0m",
+          `  - Please add a "type", one of: ${opTypes.join(", ")}\n` +
+            `  - or rename the operation key (${opKey}:) ` +
+            `to one of those types.\n`,
+        );
+        return;
+      }
       if (opPath.substr(0, 1) !== "/") {
         opPath = `${path}/${opPath}`;
       }
@@ -184,6 +204,7 @@ export const Spec = {
       paths[opPath] = {
         ...paths[opPath],
         [opType]: {
+          operationId,
           security,
           ...rolesProps,
           ...op,
@@ -227,18 +248,30 @@ export const Spec = {
 
   get() {},
 
-  jsonRequestBodyObject(properties) {
+  jsonRequestBodyObject(
+    properties,
+    { additionalProperties = false, type = "object", ...schema } = {},
+  ) {
     return {
-      content: Spec.jsonContentObject(properties),
+      content: Spec.jsonContentObject(properties, {
+        type,
+        additionalProperties,
+        ...schema,
+      }),
     };
   },
 
-  jsonContentObject(properties) {
+  jsonContentObject(
+    properties,
+    { additionalProperties = false, type = "object", ...schema } = {},
+  ) {
     return {
       "application/json": {
         schema: {
-          type: "object",
+          type,
           properties,
+          additionalProperties,
+          ...schema,
         },
       },
     };
@@ -325,13 +358,17 @@ export const Spec = {
       return params;
     }
     return Object.keys(params).map(name => {
+      let type = params[name];
+      const allowEmptyValue = type.endsWith("?");
+      if (allowEmptyValue) {
+        type = type.slice(0, -1);
+      }
       return {
         in: "query",
         name,
         required,
-        schema: {
-          type: params[name],
-        },
+        schema: { type },
+        allowEmptyValue,
       };
     });
   },

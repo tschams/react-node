@@ -33,6 +33,46 @@ export default __DEV__
           // roles: ["admin"],
         }),
 
+        assignAuthRoleToUser: Spec.op("assignAuthRoleToUser", {
+          path: "{id}",
+          type: "put",
+          summary: "Assign Authorization Role to User.",
+          parameters: [
+            Spec.pathParam("id", "integer", { description: "User Id" }),
+          ],
+          requestBody: Spec.jsonRequestBodyObject({
+            roleName: { type: "string" },
+          }),
+          responses: {
+            200: Spec.response("OK"),
+          },
+        }),
+
+        getAuthRolesOfUser: Spec.op("getAuthRolesOfUser", {
+          path: "{id}/roles",
+          type: "get",
+          summary: "Get Authorization Roles of User.",
+          parameters: [
+            Spec.pathParam("id", "integer", { description: "User Id" }),
+          ],
+          responses: {
+            200: Spec.response("OK"),
+          },
+        }),
+
+        removeAuthRoleFromUser: Spec.op("removeAuthRoleFromUser", {
+          path: "{id}/role/{roleName}",
+          type: "delete",
+          summary: "Remove Authorization Role from User.",
+          parameters: [
+            Spec.pathParam("id", "integer", { description: "User Id" }),
+            Spec.pathParam("roleName", "string", { description: "Role Name" }),
+          ],
+          responses: {
+            200: Spec.response("OK"),
+          },
+        }),
+
         getAuthRoles: Spec.op("getAuthRoles", {
           path: "roles", // e.g. /dev/users/roles
           type: "get",

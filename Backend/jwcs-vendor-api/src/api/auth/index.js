@@ -2,16 +2,10 @@ import jwt from "jsonwebtoken";
 // Local
 import { USER_JWT_EXPIRES, USER_JWT_SECRET } from "../../config";
 import passport from "../../auth/passport";
+import { apiController } from "../../lib/utils";
 // import { VendorUser } from "../../db";
 
-/**
- * @typedef {import("express").Request} Request
- * @typedef {import("express").Response} Response
- * @typedef {{[operation:string]:(req:Request,res:Response)=>void}} Controller
- */
-
-/** @type {Controller} */
-const controller = {
+export default apiController({
   login: [
     passport.authenticate("login", { session: false }),
     async function login(req, res) {
@@ -62,5 +56,4 @@ const controller = {
       });
     },
   ],
-};
-export default controller;
+});

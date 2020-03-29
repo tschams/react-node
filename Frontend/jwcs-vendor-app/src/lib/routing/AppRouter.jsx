@@ -224,13 +224,15 @@ function renderRouteForPage(page) {
 export class PrivateRoute extends React.PureComponent {
   render() {
     const { page, ...props } = this.props;
-    return isAuthenticated(page) ? (
+    const result = {};
+    return isAuthenticated(page, result) ? (
       <Route {...props} />
     ) : (
       <Redirect
         to={
+          result.redirectTo ??
           loginRedirectURL +
-          encodeURIComponent(props.location.pathname + props.location.search)
+            encodeURIComponent(props.location.pathname + props.location.search)
         }
       />
     );

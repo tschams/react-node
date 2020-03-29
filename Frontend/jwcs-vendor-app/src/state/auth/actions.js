@@ -19,7 +19,7 @@ export const AuthActions = {
 
   confirmAccount({ email, token, password1, password2 }) {
     return async dispatch => {
-      // const response = await authPost("/api/auth/confirm", {
+      // const response = await authPost("/auth/confirm", {
       //   email,
       //   newPassword: password1,
       //   token,
@@ -39,7 +39,7 @@ export const AuthActions = {
 
   forgotPassword({ email }) {
     return async dispatch => {
-      // const response = await authPost("/api/auth/password/forgot", {
+      // const response = await authPost("/auth/password/forgot", {
       //   email,
       // });
       // TODO: Make ajax call as shown above and delete mock response below.
@@ -127,7 +127,7 @@ export const AuthActions = {
 
   resetPassword({ email, token, password1, password2 }) {
     return async dispatch => {
-      // const response = await authPost("/api/auth/password/reset", {
+      // const response = await authPost("/auth/password/reset", {
       //   email,
       //   newPassword: password1,
       //   token,

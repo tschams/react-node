@@ -1,51 +1,41 @@
+import { apiController } from "../../lib/utils";
 import { VendorTodo } from "../../db";
 
-/**
- * @typedef {import("express").Request} Request
- * @typedef {import("express").Response} Response
- * @typedef {{[operation:string]:(req:Request,res:Response)=>void}} Controller
- */
-
-/** @type {Controller} */
-const controller = {
-  async createItem(req, res) {
+export default apiController({
+  async create(req, res) {
     // console.log("QUERY: ", req.query);
     // console.log("BODY: ", req.body);
     const { vendorId, id: userId } = req.user;
-    const item = await VendorTodo.create({
-      ...req.body,
-      vendorId,
-      createdByVendorUserId: userId,
-      updatedByVendorUserId: userId,
-    });
+    const item = await VendorTodo.create(vendorId, userId, req.body);
     res.json({
       item,
     });
   },
-  async listAll(req, res) {
-    const items = await VendorTodo.listForVendor({
-      vendorId: req.user.vendorId,
-    });
+  async find(req, res) {
+    const { vendorId } = req.user;
+    const items = await VendorTodo.find(vendorId, req.query);
     res.json({
       items,
     });
   },
-  async removeItem(req, res) {
-    await VendorTodo.remove(req.user.vendorId, req.params.id);
-    res.status(200).end();
-  },
-  async updateItem(req, res) {
-    const { id: itemId } = req.params;
-    const { vendorId, id: userId } = req.user;
-    const item = await VendorTodo.update({
-      ...req.body,
-      id: itemId,
-      vendorId,
-      updatedByVendorUserId: userId,
-    });
+  async getById(req, res) {
+    const { vendorId } = req.user;
+    const { id } = req.params;
+    const item = await VendorTodo.getById(vendorId, id);
     res.json({
       item,
     });
   },
-};
-export default controller;
+  async remove(req, res) {
+    await VendorTodo.remove(req.user.vendorId, req.params.id);
+    res.status(200).end();
+  },
+  async update(req, res) {
+    const { id: itemId } = req.params;
+    const { vendorId, id: userId } = req.user;
+    const item = await VendorTodo.update(vendorId, userId, itemId, req.body);
+    res.json({
+      item,
+    });
+  },
+});
