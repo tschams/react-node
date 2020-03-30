@@ -58,7 +58,7 @@ export const useStyles = makeStyles(
       top: 0,
       bottom: 0,
     },
-    blockHover: {
+    hideBlock: {
       display: "none",
     },
     menuListItem: {
@@ -92,7 +92,7 @@ export const useStyles = makeStyles(
           color: "#EF7232",
           fontWeight: 600,
         },
-        "& $blockHover": {
+        "& $hideBlock": {
           display: "inline-block",
         },
       },

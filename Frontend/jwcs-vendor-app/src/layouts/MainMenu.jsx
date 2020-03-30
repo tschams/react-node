@@ -167,7 +167,7 @@ function _MainMenu() {
                 <span
                   className={clsx(
                     classes.block,
-                    !isActive && classes.blockHover,
+                    !isActive && classes.hideBlock,
                   )}
                 ></span>
                 <ListItemIcon className={classes.menuListItemIcon}>
