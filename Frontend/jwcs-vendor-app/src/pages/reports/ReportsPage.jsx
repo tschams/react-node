@@ -24,7 +24,7 @@ function _ReportsPage() {
       </Grid>
       <Grid item xs={12}>
         <Box boxShadow={3} className={classes.contentBox}>
-        REPORTS PAGE CONTENT
+          REPORTS PAGE CONTENT
         </Box>
       </Grid>
     </Grid>

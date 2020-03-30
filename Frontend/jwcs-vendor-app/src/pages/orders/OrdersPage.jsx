@@ -24,7 +24,7 @@ function _OrdersPage() {
       </Grid>
       <Grid item xs={12}>
         <Box boxShadow={3} className={classes.contentBox}>
-        ORDERS PAGE CONTENT
+          ORDERS PAGE CONTENT
         </Box>
       </Grid>
     </Grid>

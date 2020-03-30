@@ -24,7 +24,7 @@ function _MyProductsPage() {
       </Grid>
       <Grid item xs={12}>
         <Box boxShadow={3} className={classes.contentBox}>
-        MY PRODUCTS PAGE CONTENT
+          MY PRODUCTS PAGE CONTENT
         </Box>
       </Grid>
     </Grid>

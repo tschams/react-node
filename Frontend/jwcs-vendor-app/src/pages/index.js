@@ -17,7 +17,7 @@ export const Pages = {
   orders: OrdersArea.pages,
   accounting: AccountingArea.pages,
   marketing: MarketingArea.pages,
-  reports: ReportsArea.pages
+  reports: ReportsArea.pages,
 };
 export default Pages;
 
@@ -30,7 +30,7 @@ export const AppArea = {
     OrdersArea,
     AccountingArea,
     MarketingArea,
-    ReportsArea
+    ReportsArea,
   ],
   layouts: {
     default: {

@@ -26,15 +26,15 @@ export const defaultTheme = createMuiTheme({
     // secondary: { main: "#f50057" },
   },
   typography: {
-    "fontFamily": "\"Archivo\", sans-serif",
-   },
-   mixins: {
-     text: {
+    fontFamily: '"Archivo", sans-serif',
+  },
+  mixins: {
+    text: {
       color: "#5B616B",
       lineHeight: "1rem",
       fontSize: ".85rem",
-     }
-   }
+    },
+  },
   // #region Example global overrides for this theme:
   // overrides: {
 

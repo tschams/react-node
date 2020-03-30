@@ -17,11 +17,17 @@ import {
   MarketingIcon,
   CollapseIcon,
   ExpandIcon,
-  CompanyLogoIcon
+  CompanyLogoIcon,
 } from "../components";
 import { Navigation } from "../lib";
 import Pages from "../pages";
-import { useSelector, useDispatch, UIActions, PrefActions, PrefSelectors, } from "../state";
+import {
+  useSelector,
+  useDispatch,
+  UIActions,
+  PrefActions,
+  PrefSelectors,
+} from "../state";
 import { useStyles } from "./MainMenu.styles";
 import clsx from "clsx";
 import { REACT_APP_SITE_TITLE } from "../config";
@@ -77,7 +83,7 @@ function _MainMenu() {
         text: "Reports",
         icon: ReportsIcon,
         url: Pages.reports.home.path,
-          urlActiveIf: {
+        urlActiveIf: {
           exact: true,
         },
       },
@@ -153,14 +159,17 @@ function _MainMenu() {
            */
           const isActive = Navigation.isActive(url, item.urlActiveIf);
           return (
-            <div key={text} >
+            <div key={text}>
               {i === 1 && <Divider />}
               <ListItem
                 button
                 className={clsx(
                   classes.menuListItem,
                   isActive && classes.menuListItemSelected,
-                  !isActive && i !== 0 && i !== menuItems.lastIndex && classes.menuListItemHoverAndActive
+                  !isActive &&
+                    i !== 0 &&
+                    i !== menuItems.lastIndex &&
+                    classes.menuListItemHoverAndActive,
                 )}
                 onClick={() => onMenuItemClick(item)}
               >

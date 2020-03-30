@@ -33,7 +33,7 @@ export const useStyles = makeStyles(
         },
       },
       "& > div:last-child > span, & > div:first-child > span": {
-        display: "none"
+        display: "none",
       },
       "& > div:last-child > div": {
         bottom: "1rem",
@@ -42,11 +42,11 @@ export const useStyles = makeStyles(
       "& > div:first-child > div": {
         height: "4.5rem",
         "&:hover": {
-          cursor: "auto"
+          cursor: "auto",
         },
       },
       "& > div:nth-child(2) > div": {
-        marginTop: ".5rem"
+        marginTop: ".5rem",
       },
     },
     block: {
@@ -62,10 +62,10 @@ export const useStyles = makeStyles(
       display: "none",
     },
     menuListItem: {
-        padding: ".8rem .6rem .8rem 1.1rem",
-        color: "rgba(255, 255, 255, 0.38)",
-        margin: "0 .5rem",
-        width: props => props.isNavOpen ? "89%" : "75%",
+      padding: ".8rem .6rem .8rem 1.1rem",
+      color: "rgba(255, 255, 255, 0.38)",
+      margin: "0 .5rem",
+      width: props => (props.isNavOpen ? "89%" : "75%"),
     },
     menuListItemSelected: {
       backgroundColor: "#FCEEE6",
@@ -111,7 +111,7 @@ export const useStyles = makeStyles(
       };
     },
     text: {
-      ...theme.mixins.text
+      ...theme.mixins.text,
     },
     //
     // toolbar: theme.mixins.toolbar,
