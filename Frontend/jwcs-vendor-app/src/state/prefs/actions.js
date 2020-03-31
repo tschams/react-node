@@ -10,7 +10,7 @@ export const PrefActions = {
   toggleDialogEdit() {
     return { type: type.PREFS_DIALOGEDIT_TOGGLE };
   },
-  toggleOpenNav() {
-    return { type: type.PREFS_OPENNAV_TOGGLE };
+  toggleOpenNav(value) {
+    return { type: type.PREFS_OPENNAV_TOGGLE, value };
   },
 };

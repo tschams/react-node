@@ -24,10 +24,10 @@ export const PrefState = {
         dialogEdit: !state.dialogEdit,
       };
     },
-    [PrefActions.type.PREFS_OPENNAV_TOGGLE](state, { type, ...prefs }) {
+    [PrefActions.type.PREFS_OPENNAV_TOGGLE](state, { value }) {
       return {
         ...state,
-        navOpen: !state.navOpen,
+        navOpen: value !== undefined ? value : !state.navOpen,
       };
     },
     [PrefActions.type.PREFS_UPDATE](state, { type, ...prefs }) {

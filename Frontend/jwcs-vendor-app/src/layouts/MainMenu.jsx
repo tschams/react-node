@@ -19,7 +19,7 @@ import {
   ExpandIcon,
   CompanyLogoIcon,
 } from "../components";
-import { Navigation } from "../lib";
+import { Navigation, useOnMount } from "../lib";
 import Pages from "../pages";
 import {
   useSelector,
@@ -137,6 +137,15 @@ function _MainMenu() {
    * - These should come last because they will use things defined above.
    */
   // #endregion
+  useOnMount(() => {
+    window.addEventListener("resize", toggleNavFromScreenSize);
+  });
+
+  function toggleNavFromScreenSize() {
+    window.innerWidth >= 960
+      ? dispatch(PrefActions.toggleOpenNav(true))
+      : dispatch(PrefActions.toggleOpenNav(false));
+  }
 
   function onMenuItemClick(item) {
     if (item !== menuItems.lastItem) {
