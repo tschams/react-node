@@ -109,6 +109,7 @@ function _MainMenu() {
    * - We use `setCurrentPath` only to cause a re-render, not reading it.
    */
   // #endregion
+  // is there a benefit to memoize now that getItems is a function, and not like before that it was a functional component?
   const { menuItems } = React.useMemo(getItems);
   const [, setCurrentPath] = React.useState(null);
   // #region Callbacks, Effects
