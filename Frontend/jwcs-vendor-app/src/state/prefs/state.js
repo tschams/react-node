@@ -18,7 +18,7 @@ export const PrefState = {
     [AuthActions.type.LOGOUT_SUCCESS](state, action) {
       return PrefState.defaults;
     },
-    [PrefActions.type.PREFS_DIALOGEDIT_TOGGLE](state, { type, ...prefs }) {
+    [PrefActions.type.PREFS_DIALOGEDIT_TOGGLE](state) {
       return {
         ...state,
         dialogEdit: !state.dialogEdit,
@@ -27,7 +27,7 @@ export const PrefState = {
     [PrefActions.type.PREFS_OPENNAV_TOGGLE](state, { value }) {
       return {
         ...state,
-        navOpen: value !== undefined ? value : !state.navOpen,
+        navOpen: value ?? !state.navOpen,
       };
     },
     [PrefActions.type.PREFS_UPDATE](state, { type, ...prefs }) {
