@@ -90,6 +90,7 @@ function _MainMenu() {
       {
         text: "Collapse",
         icon: isNavOpen ? CollapseIcon : ExpandIcon,
+        onClick: ()=> dispatch(PrefActions.toggleOpenNav())
       },
     ];
 
@@ -148,13 +149,15 @@ function _MainMenu() {
   }
 
   function onMenuItemClick(item) {
-    if (item !== menuItems.lastItem) {
-      dispatch(UIActions.setUILoading(true));
-      Navigation.go(item.url);
-      //the following line definitely needs to be in a finally like code, what is the best way? besides are we catching all errors in this code block
-      return dispatch(UIActions.setUILoading(false));
+    if (!item.onClick) {
+      item.onClick = () => {
+        dispatch(UIActions.setUILoading(true));
+        Navigation.go(item.url);
+        //the following line definitely needs to be in a finally like code, what is the best way? besides are we catching all errors in this code block
+        dispatch(UIActions.setUILoading(false));
+      }
     }
-    dispatch(PrefActions.toggleOpenNav());
+    return item.onClick;
   }
 
   const menuContent = (
@@ -181,7 +184,7 @@ function _MainMenu() {
                     i !== menuItems.lastIndex &&
                     classes.menuListItemHoverAndActive,
                 )}
-                onClick={() => onMenuItemClick(item)}
+                onClick={onMenuItemClick(item)}
               >
                 <span
                   className={clsx(
