@@ -16,6 +16,9 @@ export const useStyles = makeStyles(
         color: theme.palette.primary.contrastText,
         width: props.isNavOpen ? drawerWidth : drawerWidthClosed,
         whiteSpace: "nowrap",
+        borderRightWidth: "1px",
+        borderRightStyle: "solid",
+        borderRightColor: theme.divideColor,
       };
     },
     menuRoot: {
@@ -40,7 +43,7 @@ export const useStyles = makeStyles(
         position: "absolute",
       },
       "& > div:first-child > div": {
-        height: "4.5rem",
+        height: `calc(4.5rem - 1px)`,
         "&:hover": {
           cursor: "auto",
         },
@@ -103,6 +106,9 @@ export const useStyles = makeStyles(
     },
     menuListItemText: {
       minWidth: "5.25rem",
+    },
+    divider: {
+      backgroundColor: theme.dividerColor
     },
     menuListItemIcon(props) {
       return {

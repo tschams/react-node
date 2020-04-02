@@ -20,6 +20,7 @@ import { createMuiTheme, useMediaQuery } from "@material-ui/core";
  * with example overrides.
  */
 export const defaultTheme = createMuiTheme({
+  dividerColor: "#DFE2E6",
   palette: {
     type: "light",
     // primary: { main: "#3f51b5" },

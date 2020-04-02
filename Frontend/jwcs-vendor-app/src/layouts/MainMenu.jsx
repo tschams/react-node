@@ -173,7 +173,7 @@ function _MainMenu() {
           const isActive = Navigation.isActive(url, item.urlActiveIf);
           return (
             <div key={text}>
-              {i === 1 && <Divider />}
+              {i === 1 && <Divider className={classes.divider} />}
               <ListItem
                 button
                 className={clsx(
