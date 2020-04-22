@@ -28,6 +28,7 @@ import {
   PrefSelectors,
 } from "../state";
 import { useStyles } from "./MainMenu.styles";
+import { Masthead } from "./Masthead";
 import clsx from "clsx";
 import { REACT_APP_SITE_TITLE } from "../config";
 
@@ -189,6 +190,7 @@ function _MainMenu() {
 
   return (
     <>
+    <Masthead isNavOpen={{isNavOpen}} pageName={pageName} />
       <nav className={classes.drawer} aria-label="Main menu">
         <Drawer
           classes={{
