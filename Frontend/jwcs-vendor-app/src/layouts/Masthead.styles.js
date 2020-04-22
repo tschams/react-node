@@ -13,10 +13,7 @@ export const useStyles = makeStyles(
     text: {
       color: "#5B616B",
       position: "absolute",
-      // width: "171px",
-      // height: "28px",
       left: "16px",
-      top: "calc(50% - 28px/2)",
       fontWeight: "bold",
       fontSize: "26px",
       lineHeight: "28px",
