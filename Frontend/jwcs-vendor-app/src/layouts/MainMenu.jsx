@@ -131,11 +131,8 @@ function _MainMenu() {
   function onMenuItemClick(item) {
     if (!item.onClick) {
       item.onClick = () => {
-        dispatch(UIActions.setUILoading(true));
         Navigation.go(item.url);
-        //the following line definitely needs to be in a finally like code, what is the best way? besides are we catching all errors in this code block
-        dispatch(UIActions.setUILoading(false));
-      }
+        }
     }
     return item.onClick;
   }
