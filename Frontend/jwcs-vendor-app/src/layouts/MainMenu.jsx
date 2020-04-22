@@ -24,7 +24,6 @@ import Pages from "../pages";
 import {
   useSelector,
   useDispatch,
-  UIActions,
   PrefActions,
   PrefSelectors,
 } from "../state";
@@ -105,42 +104,23 @@ function _MainMenu() {
   const classes = useStyles({
     isNavOpen,
   });
-  // #region State
-  /**
-   * - We use `setCurrentPath` only to cause a re-render, not reading it.
-   */
-  // #endregion
-  // is there a benefit to memoize now that getItems is a function, and not like before that it was a functional component?
+
   const { menuItems } = React.useMemo(getItems);
-  const [, setCurrentPath] = React.useState(null);
-  // #region Callbacks, Effects
-  /**
-   * - The `routeChanged` callback is created only once on component mount.
-   * Not on every render. See https://reactjs.org/docs/hooks-reference.html#usecallback
-   *
-   * - The `Navigation.onRouteChanged` handler is only created on component
-   * mount or if `routeChanged` is recreated (which only happens on mount).
-   * Likewise, the retuned `remove` function is only called  React when the
-   * component is unmounted or if `routeChanged` is recreated.
-   * See https://reactjs.org/docs/hooks-reference.html#cleaning-up-an-effect
-   * See https://reactjs.org/docs/hooks-reference.html#conditionally-firing-an-effect
-   */
-  // #endregion
-  const routeChanged = React.useCallback(() => {
-    setCurrentPath(Navigation.location.pathname);
+  const [pageName, setPageName] = React.useState();
+
+  useOnMount(() => {
+    window.addEventListener("resize", toggleNavFromScreenSize);
+    setPageName(Navigation.page.titleText);
+  });
+
+  const routeChanged = React.useCallback((route) => {
+    setPageName(route.page.titleText);
   }, []);
+
   React.useEffect(() => {
     const remove = Navigation.onRouteChanged(routeChanged);
     return remove;
   }, [routeChanged]);
-  // #region Input handlers
-  /**
-   * - These should come last because they will use things defined above.
-   */
-  // #endregion
-  useOnMount(() => {
-    window.addEventListener("resize", toggleNavFromScreenSize);
-  });
 
   function toggleNavFromScreenSize() {
     window.innerWidth >= 960
@@ -167,10 +147,12 @@ function _MainMenu() {
           const { text, icon: Icon, url } = item;
           /**
            * `Navigation.isActive` can only be read reliably since we're
-           * re-rendering when `setCurrentPath` is called in `routeChanged`,
+           * re-rendering when `setPageName` is called in `routeChanged`,
            * the `Navigation.onRouteChanged` event handler...
-           */
+          */
+
           const isActive = Navigation.isActive(url, item.urlActiveIf);
+
           return (
             <div key={text}>
               {i === 1 && <Divider className={classes.divider} />}
