@@ -39,24 +39,24 @@ export const useStyles = makeStyles(
         display: "none",
       },
       "& > div:last-child > div": {
-        bottom: "1rem",
+        bottom: "16px",
         position: "absolute",
       },
       "& > div:first-child > div": {
-        height: `calc(4.5rem - 1px)`,
+        height: "71px",
         "&:hover": {
           cursor: "auto",
         },
       },
       "& > div:nth-child(2) > div": {
-        marginTop: ".5rem",
+        marginTop: "8px",
       },
     },
     block: {
       background: "#F28955",
-      borderRadius: ".25rem 0 0 .25rem",
+      borderRadius: "4px 0 0 4px",
       position: "absolute",
-      width: ".38rem",
+      width: "6px",
       left: 0,
       top: 0,
       bottom: 0,
@@ -65,14 +65,14 @@ export const useStyles = makeStyles(
       display: "none",
     },
     menuListItem: {
-      padding: ".8rem .6rem .8rem 1.1rem",
+      padding: "13px 9.5px 13px 17.5px",
       color: "rgba(255, 255, 255, 0.38)",
-      margin: "0 .5rem",
+      margin: "0 8px",
       width: props => (props.isNavOpen ? "89%" : "75%"),
     },
     menuListItemSelected: {
       backgroundColor: "#FCEEE6",
-      borderRadius: ".25rem",
+      borderRadius: "4px",
       "&:hover": {
         backgroundColor: "#FCEEE6",
       },
@@ -87,7 +87,7 @@ export const useStyles = makeStyles(
     menuListItemHoverAndActive: {
       "&:hover": {
         backgroundColor: "#FCEEE6",
-        borderRadius: ".25rem",
+        borderRadius: "4px",
         "& $menuListItemIcon": {
           fill: "#EF7232",
         },
@@ -105,7 +105,7 @@ export const useStyles = makeStyles(
       },
     },
     menuListItemText: {
-      minWidth: "5.25rem",
+      minWidth: "84px",
     },
     divider: {
       backgroundColor: theme.dividerColor
@@ -113,7 +113,7 @@ export const useStyles = makeStyles(
     menuListItemIcon(props) {
       return {
         fill: "#959AA1",
-        minWidth: props.isNavOpen ? "1.5rem" : "3rem",
+        minWidth: props.isNavOpen ? "24px" : "48px",
       };
     },
     text: {

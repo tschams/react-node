@@ -7,7 +7,7 @@ export const useStyles = makeStyles(
       width: (props) => `calc(100% - ${props.isNavOpen ? 152 : 66}px)`,
       backgroundColor: "#DFE2E6",
       borderRadius: 0,
-      height: "4.5rem",
+      height: "72px",
       boxShadow: "none"
     },
     text: {

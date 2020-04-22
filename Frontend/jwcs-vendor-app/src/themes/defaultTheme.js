@@ -32,8 +32,8 @@ export const defaultTheme = createMuiTheme({
   mixins: {
     text: {
       color: "#5B616B",
-      lineHeight: "1rem",
-      fontSize: ".85rem",
+      lineHeight: "16px",
+      fontSize: "13.5px",
     },
   },
   // #region Example global overrides for this theme:
