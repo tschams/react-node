@@ -4,7 +4,7 @@ export const MyProductsPages = {
   home: {
     anon: false,
     path: "/my-products",
-    title: "MyProducts",
+    title: "My Products",
     type: "PAGE_MYPRODUCTS",
     view: MyProductsPage,
   },
