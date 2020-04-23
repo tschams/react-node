@@ -105,7 +105,7 @@ export const useStyles = makeStyles(
       minWidth: "84px",
     },
     divider: {
-      backgroundColor: theme.dividerColor
+      backgroundColor: theme.dividerColor,
     },
     menuListItemIcon(props) {
       return {

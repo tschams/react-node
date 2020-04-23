@@ -21,12 +21,7 @@ import {
 } from "../components";
 import { Navigation, useOnMount } from "../lib";
 import Pages from "../pages";
-import {
-  useSelector,
-  useDispatch,
-  PrefActions,
-  PrefSelectors,
-} from "../state";
+import { useSelector, useDispatch, PrefActions, PrefSelectors } from "../state";
 import { useStyles } from "./MainMenu.styles";
 import { Masthead } from "./Masthead";
 import clsx from "clsx";
@@ -90,7 +85,7 @@ function _MainMenu() {
       {
         text: "Collapse",
         icon: isNavOpen ? CollapseIcon : ExpandIcon,
-        onClick: ()=> dispatch(PrefActions.toggleOpenNav())
+        onClick: () => dispatch(PrefActions.toggleOpenNav()),
       },
     ];
 
@@ -106,7 +101,9 @@ function _MainMenu() {
   const drawerClosed = 66;
 
   const classes = useStyles({
-    isNavOpen, drawerOpen, drawerClosed
+    isNavOpen,
+    drawerOpen,
+    drawerClosed,
   });
 
   const { menuItems } = React.useMemo(getItems);
@@ -117,7 +114,7 @@ function _MainMenu() {
     setPageName(Navigation.page.titleText);
   });
 
-  const routeChanged = React.useCallback((route) => {
+  const routeChanged = React.useCallback(route => {
     setPageName(route.page.titleText);
   }, []);
 
@@ -136,7 +133,7 @@ function _MainMenu() {
     if (!item.onClick) {
       item.onClick = () => {
         Navigation.go(item.url);
-        }
+      };
     }
     return item.onClick;
   }
@@ -150,7 +147,7 @@ function _MainMenu() {
            * `Navigation.isActive` can only be read reliably since we're
            * re-rendering when `setPageName` is called in `routeChanged`,
            * the `Navigation.onRouteChanged` event handler...
-          */
+           */
           const isActive = Navigation.isActive(url, item.urlActiveIf);
 
           return (
@@ -192,7 +189,12 @@ function _MainMenu() {
 
   return (
     <>
-    <Masthead isNavOpen={isNavOpen} pageName={pageName} drawerOpen={drawerOpen} drawerClosed={drawerClosed} />
+      <Masthead
+        isNavOpen={isNavOpen}
+        pageName={pageName}
+        drawerOpen={drawerOpen}
+        drawerClosed={drawerClosed}
+      />
       <nav className={classes.drawer} aria-label="Main menu">
         <Drawer
           classes={{
