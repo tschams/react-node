@@ -2,13 +2,17 @@ import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles(
   theme => ({
-    root: {
-      marginLeft: (props) => props.isNavOpen ? 152 : 66,
-      width: (props) => `calc(100% - ${props.isNavOpen ? 152 : 66}px)`,
-      backgroundColor: "#DFE2E6",
-      borderRadius: 0,
-      height: "72px",
-      boxShadow: "none"
+    root(props) {
+      const {isNavOpen, drawerWidth, drawerWidthClosed} = props;
+      console.log(isNavOpen, drawerWidth, drawerWidthClosed)
+      return {
+        marginLeft: isNavOpen ? drawerWidth : drawerWidthClosed,
+        width: `calc(100% - ${isNavOpen ? drawerWidth : drawerWidthClosed}px)`,
+        backgroundColor: "#DFE2E6",
+        borderRadius: 0,
+        height: "72px",
+        boxShadow: "none"
+      };
     },
     text: {
       color: "#5B616B",

@@ -102,8 +102,11 @@ function _MainMenu() {
   const isNavOpen = useSelector(PrefSelectors.navOpen);
   const dispatch = useDispatch();
 
+  const drawerWidth = 152;
+  const drawerWidthClosed = 66;
+
   const classes = useStyles({
-    isNavOpen,
+    isNavOpen, drawerWidth, drawerWidthClosed
   });
 
   const { menuItems } = React.useMemo(getItems);
@@ -148,7 +151,6 @@ function _MainMenu() {
            * re-rendering when `setPageName` is called in `routeChanged`,
            * the `Navigation.onRouteChanged` event handler...
           */
-
           const isActive = Navigation.isActive(url, item.urlActiveIf);
 
           return (
@@ -190,7 +192,7 @@ function _MainMenu() {
 
   return (
     <>
-    <Masthead isNavOpen={{isNavOpen}} pageName={pageName} />
+    <Masthead isNavOpen={isNavOpen} pageName={pageName} drawerWidth={drawerWidth} drawerWidthClosed={drawerWidthClosed} />
       <nav className={classes.drawer} aria-label="Main menu">
         <Drawer
           classes={{

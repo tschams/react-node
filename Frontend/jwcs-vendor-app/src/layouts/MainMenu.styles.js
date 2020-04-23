@@ -1,20 +1,17 @@
 import { makeStyles } from "@material-ui/core";
 
-const drawerWidth = 152;
-const drawerWidthClosed = 66;
-
 export const useStyles = makeStyles(
   theme => ({
     drawer(props) {
       return {
-        width: props.isNavOpen ? drawerWidth : drawerWidthClosed,
+        width: props.isNavOpen ? props.drawerWidth : props.drawerWidthClosed,
         flexShrink: 0,
       };
     },
     drawerPaper(props) {
       return {
         color: theme.palette.primary.contrastText,
-        width: props.isNavOpen ? drawerWidth : drawerWidthClosed,
+        width: props.isNavOpen ? props.drawerWidth : props.drawerWidthClosed,
         whiteSpace: "nowrap",
         borderRightWidth: "1px",
         borderRightStyle: "solid",
