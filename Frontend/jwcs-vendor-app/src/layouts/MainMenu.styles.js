@@ -4,14 +4,14 @@ export const useStyles = makeStyles(
   theme => ({
     drawer(props) {
       return {
-        width: props.isNavOpen ? props.drawerWidth : props.drawerWidthClosed,
+        width: props.isNavOpen ? props.drawerOpen : props.drawerClosed,
         flexShrink: 0,
       };
     },
     drawerPaper(props) {
       return {
         color: theme.palette.primary.contrastText,
-        width: props.isNavOpen ? props.drawerWidth : props.drawerWidthClosed,
+        width: props.isNavOpen ? props.drawerOpen : props.drawerClosed,
         whiteSpace: "nowrap",
         borderRightWidth: "1px",
         borderRightStyle: "solid",

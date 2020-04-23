@@ -4,8 +4,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 
 function _Masthead(props) {
-  const {isNavOpen, drawerWidth, drawerWidthClosed} = props;
-  const classes = useStyles({isNavOpen, drawerWidth, drawerWidthClosed});
+  const {isNavOpen, drawerOpen, drawerClosed} = props;
+  const classes = useStyles({isNavOpen, drawerOpen, drawerClosed});
 
   return (
     <AppBar position="fixed" className={classes.root} >

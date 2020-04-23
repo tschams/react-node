@@ -102,11 +102,11 @@ function _MainMenu() {
   const isNavOpen = useSelector(PrefSelectors.navOpen);
   const dispatch = useDispatch();
 
-  const drawerWidth = 152;
-  const drawerWidthClosed = 66;
+  const drawerOpen = 152;
+  const drawerClosed = 66;
 
   const classes = useStyles({
-    isNavOpen, drawerWidth, drawerWidthClosed
+    isNavOpen, drawerOpen, drawerClosed
   });
 
   const { menuItems } = React.useMemo(getItems);
@@ -192,7 +192,7 @@ function _MainMenu() {
 
   return (
     <>
-    <Masthead isNavOpen={isNavOpen} pageName={pageName} drawerWidth={drawerWidth} drawerWidthClosed={drawerWidthClosed} />
+    <Masthead isNavOpen={isNavOpen} pageName={pageName} drawerOpen={drawerOpen} drawerClosed={drawerClosed} />
       <nav className={classes.drawer} aria-label="Main menu">
         <Drawer
           classes={{
