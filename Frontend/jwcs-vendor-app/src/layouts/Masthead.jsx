@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { useStyles } from "./Masthead.styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -15,5 +16,11 @@ function _Masthead(props) {
     </AppBar>
   );
 }
+
+_Masthead.propTypes = {
+  isNavOpen: PropTypes.bool.isRequired,
+  drawerOpen: PropTypes.number.isRequired,
+  drawerClosed: PropTypes.number.isRequired,
+};
 
 export const Masthead = React.memo(_Masthead);
