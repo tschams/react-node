@@ -3,11 +3,11 @@ import { makeStyles } from "@material-ui/core";
 export const useStyles = makeStyles(
   theme => ({
     root(props) {
-      const { isNavOpen, drawerOpen, drawerClosed } = props;
+      const { width } = props;
 
       return {
-        marginLeft: isNavOpen ? drawerOpen : drawerClosed,
-        width: `calc(100% - ${isNavOpen ? drawerOpen : drawerClosed}px)`,
+        marginLeft: width,
+        width: `calc(100% - ${width}px)`,
         backgroundColor: "#DFE2E6",
         borderRadius: 0,
         height: "72px",

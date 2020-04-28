@@ -5,22 +5,21 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 
 function _Masthead(props) {
-  const { isNavOpen, drawerOpen, drawerClosed } = props;
-  const classes = useStyles({ isNavOpen, drawerOpen, drawerClosed });
+  const { width, pageName } = props;
+  const classes = useStyles({ width });
 
   return (
     <AppBar position="fixed" className={classes.root}>
       <Toolbar>
-        <div className={classes.text}>{props.pageName}</div>
+        <div className={classes.text}>{pageName}</div>
       </Toolbar>
     </AppBar>
   );
 }
 
 _Masthead.propTypes = {
-  isNavOpen: PropTypes.bool.isRequired,
-  drawerOpen: PropTypes.number.isRequired,
-  drawerClosed: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  pageName: PropTypes.string.isRequired
 };
 
 export const Masthead = React.memo(_Masthead);

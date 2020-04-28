@@ -2,16 +2,16 @@ import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles(
   theme => ({
-    drawer(props) {
+    drawer({width}) {
       return {
-        width: props.isNavOpen ? props.drawerOpen : props.drawerClosed,
+        width,
         flexShrink: 0,
       };
     },
-    drawerPaper(props) {
+    drawerPaper({width}) {
       return {
         color: theme.palette.primary.contrastText,
-        width: props.isNavOpen ? props.drawerOpen : props.drawerClosed,
+        width,
         whiteSpace: "nowrap",
         borderRightWidth: "1px",
         borderRightStyle: "solid",
@@ -65,7 +65,7 @@ export const useStyles = makeStyles(
       padding: "13px 9.5px 13px 17.5px",
       color: "rgba(255, 255, 255, 0.38)",
       margin: "0 8px",
-      width: props => (props.isNavOpen ? "89%" : "75%"),
+      width: ({navOpen}) => (navOpen ? "89%" : "75%"),
     },
     menuListItemSelected: {
       backgroundColor: "#FCEEE6",
@@ -107,10 +107,10 @@ export const useStyles = makeStyles(
     divider: {
       backgroundColor: theme.dividerColor,
     },
-    menuListItemIcon(props) {
+    menuListItemIcon({navOpen}) {
       return {
         fill: "#959AA1",
-        minWidth: props.isNavOpen ? "24px" : "48px",
+        minWidth: navOpen ? "24px" : "48px",
       };
     },
     text: {

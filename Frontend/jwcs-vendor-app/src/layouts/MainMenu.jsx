@@ -84,7 +84,7 @@ function _MainMenu() {
       },
       {
         text: "Collapse",
-        icon: isNavOpen ? CollapseIcon : ExpandIcon,
+        icon: navOpen ? CollapseIcon : ExpandIcon,
         onClick: () => dispatch(PrefActions.toggleOpenNav()),
       },
     ];
@@ -94,20 +94,13 @@ function _MainMenu() {
     };
   }
 
-  const isNavOpen = useSelector(PrefSelectors.navOpen);
+  const navOpen = useSelector(PrefSelectors.navOpen);
   const dispatch = useDispatch();
 
-  const drawerOpen = 152;
-  const drawerClosed = 66;
-
-  const classes = useStyles({
-    isNavOpen,
-    drawerOpen,
-    drawerClosed,
-  });
+  const classes = useStyles({width: navWidth(navOpen), navOpen});
 
   const { menuItems } = React.useMemo(getItems);
-  const [pageName, setPageName] = React.useState();
+  const [pageName, setPageName] = React.useState('');
 
   useOnMount(() => {
     window.addEventListener("resize", toggleNavFromScreenSize);
@@ -122,6 +115,10 @@ function _MainMenu() {
     const remove = Navigation.onRouteChanged(routeChanged);
     return remove;
   }, [routeChanged]);
+
+  function navWidth(open) {
+    return open ? 152 : 66;
+  }
 
   function toggleNavFromScreenSize() {
     window.innerWidth >= 960
@@ -190,10 +187,8 @@ function _MainMenu() {
   return (
     <>
       <Masthead
-        isNavOpen={isNavOpen}
+        width={navWidth(navOpen)}
         pageName={pageName}
-        drawerOpen={drawerOpen}
-        drawerClosed={drawerClosed}
       />
       <nav className={classes.drawer} aria-label="Main menu">
         <Drawer
