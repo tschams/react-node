@@ -104,7 +104,7 @@ function _MainMenu() {
 
   useOnMount(() => {
     window.addEventListener("resize", toggleNavFromScreenSize);
-    setPageName(Navigation.page.titleText);
+    setPageName(Navigation?.page?.titleText);
   });
 
   const routeChanged = React.useCallback(route => {
