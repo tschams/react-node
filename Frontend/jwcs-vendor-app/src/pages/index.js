@@ -1,7 +1,11 @@
 // import { DevArea } from "./dev";
 import { AuthArea } from "./auth";
 import { MainArea } from "./main";
-import { TodoArea } from "./todos";
+import { MyProductsArea } from "./myProducts";
+import { OrdersArea } from "./orders";
+import { AccountingArea } from "./accounting";
+import { MarketingArea } from "./marketing";
+import { ReportsArea } from "./reports";
 
 import { MainLayout } from "../layouts";
 
@@ -9,7 +13,11 @@ export const Pages = {
   // dev: DevArea,
   auth: AuthArea.pages,
   main: MainArea.pages,
-  todo: TodoArea.pages,
+  myProducts: MyProductsArea.pages,
+  orders: OrdersArea.pages,
+  accounting: AccountingArea.pages,
+  marketing: MarketingArea.pages,
+  reports: ReportsArea.pages,
 };
 export default Pages;
 
@@ -18,7 +26,11 @@ export const AppArea = {
     // DevArea,
     AuthArea,
     MainArea,
-    TodoArea,
+    MyProductsArea,
+    OrdersArea,
+    AccountingArea,
+    MarketingArea,
+    ReportsArea,
   ],
   layouts: {
     default: {

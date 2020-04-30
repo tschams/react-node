@@ -20,10 +20,21 @@ import { createMuiTheme, useMediaQuery } from "@material-ui/core";
  * with example overrides.
  */
 export const defaultTheme = createMuiTheme({
+  dividerColor: "#DFE2E6",
   palette: {
     type: "light",
     // primary: { main: "#3f51b5" },
     // secondary: { main: "#f50057" },
+  },
+  typography: {
+    fontFamily: '"Archivo", sans-serif',
+  },
+  mixins: {
+    text: {
+      color: "#5B616B",
+      lineHeight: "16px",
+      fontSize: "13.5px",
+    },
   },
   // #region Example global overrides for this theme:
   // overrides: {

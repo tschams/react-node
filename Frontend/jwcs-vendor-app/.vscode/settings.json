@@ -1,5 +1,4 @@
 {
-  "editor.formatOnSave": true,
   "search.exclude": {
     "package-lock.json": true,
     "yarn.lock": true

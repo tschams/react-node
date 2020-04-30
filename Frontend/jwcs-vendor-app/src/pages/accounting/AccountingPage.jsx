@@ -3,16 +3,16 @@ import { Box, Grid, Typography } from "@material-ui/core";
 // Local
 import { AuthSelectors, useSelector } from "../../state";
 import { useMobile } from "../../themes";
-import { useStyles } from "./HomePage.styles";
+import { useStyles } from "./AccountingPage.styles";
 
-function _HomePage() {
+function _AccountingPage() {
   // const dispatch = useDispatch();
   const userFirstName = useSelector(AuthSelectors.userFirstName);
   const classes = useStyles();
   const isMobile = useMobile();
 
   // useOnMount(() => {
-  //   dispatch(SomeActions.getHomePageData());
+  //   dispatch(SomeActions.getAccountingPageData());
   // });
 
   return (
@@ -24,11 +24,11 @@ function _HomePage() {
       </Grid>
       <Grid item xs={12}>
         <Box boxShadow={3} className={classes.contentBox}>
-          DASHBOARD PAGE CONTENT
+          ACCOUNTING PAGE CONTENT
         </Box>
       </Grid>
     </Grid>
   );
 }
 
-export const HomePage = React.memo(_HomePage);
+export const AccountingPage = React.memo(_AccountingPage);

@@ -1,84 +1,120 @@
 import { makeStyles } from "@material-ui/core";
 
-const drawerWidth = 250;
-
 export const useStyles = makeStyles(
   theme => ({
-    appBar: {
-      marginLeft: drawerWidth,
-      [theme.breakpoints.up("md")]: {
-        width: `calc(100% - ${drawerWidth}px)`,
-      },
-    },
-    avatar: {
-      margin: 16,
-      marginTop: 32,
-      padding: 24,
-    },
-    companyLogoShape: {
-      position: "relative",
-      left: "30%",
-    },
-    companyLogoBox: {
-      position: "absolute",
-      bottom: 0,
-      textAlign: "center",
-      width: "100%",
-      paddingLeft: 15,
-      paddingRight: 15,
-      "& img": {
-        width: 140,
-        paddingBottom: 10,
-      },
-    },
-    drawer: {
-      [theme.breakpoints.up("md")]: {
-        width: drawerWidth,
+    drawer({width}) {
+      return {
+        width,
         flexShrink: 0,
-      },
+      };
     },
-    drawerPaper: {
-      color: theme.palette.grey[700],
-      width: drawerWidth,
-      [theme.breakpoints.up("sm")]: {
+    drawerPaper({width}) {
+      return {
         color: theme.palette.primary.contrastText,
-        // backgroundColor: theme.palette.primary.dark,
-        backgroundColor: "#004868",
-      },
+        width,
+        whiteSpace: "nowrap",
+        borderRightWidth: "1px",
+        borderRightStyle: "solid",
+        borderRightColor: theme.divideColor,
+      };
     },
     menuRoot: {
-      backgroundColor: "#00364E",
-      [theme.breakpoints.down("sm")]: {
-        backgroundColor: "white",
-      },
+      backgroundColor: "#FFFFFF",
+      height: "100%",
+      overflow: "hidden",
     },
     menuList: {
-      backgroundColor: "#004868",
-      [theme.breakpoints.down("sm")]: {
-        backgroundColor: "white",
+      height: "100%",
+      padding: 0,
+      "& > div:last-child > div, & > div:first-child > div": {
+        backgroundColor: "#FFFFFF",
+        "&:hover": {
+          backgroundColor: "#FFFFFF",
+        },
       },
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-      [theme.breakpoints.up("md")]: {
+      "& > div:last-child > span, & > div:first-child > span": {
         display: "none",
       },
+      "& > div:last-child > div": {
+        bottom: "16px",
+        position: "absolute",
+      },
+      "& > div:first-child > div": {
+        height: "71px",
+        "&:hover": {
+          cursor: "auto",
+        },
+      },
+      "& > div:nth-child(2) > div": {
+        marginTop: "8px",
+      },
+    },
+    block: {
+      background: "#F28955",
+      borderRadius: "4px 0 0 4px",
+      position: "absolute",
+      width: "6px",
+      left: 0,
+      top: 0,
+      bottom: 0,
+    },
+    hideBlock: {
+      display: "none",
     },
     menuListItem: {
+      padding: "13px 9.5px 13px 17.5px",
       color: "rgba(255, 255, 255, 0.38)",
-      [theme.breakpoints.down("sm")]: {
-        color: "rgba(0, 0, 0, 0.38)",
+      margin: "0 8px",
+      width: ({navOpen}) => (navOpen ? "89%" : "75%"),
+    },
+    menuListItemSelected: {
+      backgroundColor: "#FCEEE6",
+      borderRadius: "4px",
+      "&:hover": {
+        backgroundColor: "#FCEEE6",
+      },
+      "& $menuListItemText": {
+        color: "#EF7232",
+        fontWeight: 600,
+      },
+      "& $menuListItemIcon": {
+        fill: "#EF7232",
       },
     },
-    menuListItemActive: {
-      color: "white",
-      borderLeft: "2px solid white",
-      [theme.breakpoints.down("sm")]: {
-        color: theme.palette.primary.light,
+    menuListItemHoverAndActive: {
+      "&:hover": {
+        backgroundColor: "#FCEEE6",
+        borderRadius: "4px",
+        "& $menuListItemIcon": {
+          fill: "#EF7232",
+        },
+        "& $menuListItemText": {
+          color: "#EF7232",
+          fontWeight: 600,
+        },
+        "& $hideBlock": {
+          display: "inline-block",
+        },
+      },
+      "&:active": {
+        boxShadow:
+          "inset -1px 2px 5px rgba(239, 114, 50, 0.15), inset 0px 2px 10px rgba(239, 114, 50, 0.08)",
       },
     },
-    menuListItemIcon: {
-      color: "unset",
+    menuListItemText: {
+      minWidth: "84px",
+    },
+    divider: {
+      backgroundColor: theme.dividerColor,
+    },
+    menuListItemIcon({navOpen}) {
+      return {
+        fill: "#959AA1",
+        minWidth: navOpen ? "24px" : "48px",
+      };
+    },
+    text: {
+      ...theme.mixins.text,
     },
     //
     // toolbar: theme.mixins.toolbar,
@@ -87,16 +123,6 @@ export const useStyles = makeStyles(
     // then use it with a div to match the AppBar height, e.g.
     // <div className={classes.toolbar} />
     //
-    userName: {
-      marginBottom: -8,
-      marginLeft: 16,
-      marginTop: 0,
-    },
-    viewProfileText: {
-      [theme.breakpoints.down("sm")]: {
-        color: theme.palette.primary.main,
-      },
-    },
   }),
   {
     classNamePrefix: "MainMenu",

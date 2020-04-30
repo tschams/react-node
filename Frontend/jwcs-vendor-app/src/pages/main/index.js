@@ -6,7 +6,7 @@ export const MainPages = {
   home: {
     anon: false,
     path: "/",
-    title: "Home",
+    title: "Dashboard",
     type: "PAGE_HOME",
     view: HomePage,
   },
