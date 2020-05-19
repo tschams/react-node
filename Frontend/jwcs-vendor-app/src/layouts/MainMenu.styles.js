@@ -2,13 +2,13 @@ import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles(
   theme => ({
-    drawer({width}) {
+    drawer({ width }) {
       return {
         width,
         flexShrink: 0,
       };
     },
-    drawerPaper({width}) {
+    drawerPaper({ width }) {
       return {
         color: theme.palette.primary.contrastText,
         width,
@@ -65,7 +65,7 @@ export const useStyles = makeStyles(
       padding: "13px 9.5px 13px 17.5px",
       color: "rgba(255, 255, 255, 0.38)",
       margin: "0 8px",
-      width: ({navOpen}) => (navOpen ? "89%" : "75%"),
+      width: ({ navOpen }) => (navOpen ? "89%" : "75%"),
     },
     menuListItemSelected: {
       backgroundColor: "#FCEEE6",
@@ -107,7 +107,7 @@ export const useStyles = makeStyles(
     divider: {
       backgroundColor: theme.dividerColor,
     },
-    menuListItemIcon({navOpen}) {
+    menuListItemIcon({ navOpen }) {
       return {
         fill: "#959AA1",
         minWidth: navOpen ? "24px" : "48px",

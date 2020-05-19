@@ -19,7 +19,7 @@ function _Masthead(props) {
 
 _Masthead.propTypes = {
   width: PropTypes.number.isRequired,
-  pageName: PropTypes.string.isRequired
+  pageName: PropTypes.string.isRequired,
 };
 
 export const Masthead = React.memo(_Masthead);

@@ -97,10 +97,14 @@ function _MainMenu() {
   const navOpen = useSelector(PrefSelectors.navOpen);
   const dispatch = useDispatch();
 
-  const classes = useStyles({width: navWidth(navOpen), navOpen});
+  const navWidth = React.useCallback(open => {
+    return open ? 152 : 66;
+  }, []);
+
+  const classes = useStyles({ width: navWidth(navOpen), navOpen });
 
   const { menuItems } = React.useMemo(getItems);
-  const [pageName, setPageName] = React.useState('');
+  const [pageName, setPageName] = React.useState("");
 
   useOnMount(() => {
     window.addEventListener("resize", toggleNavFromScreenSize);
@@ -116,24 +120,20 @@ function _MainMenu() {
     return remove;
   }, [routeChanged]);
 
-  function navWidth(open) {
-    return open ? 152 : 66;
-  }
-
-  function toggleNavFromScreenSize() {
+  const toggleNavFromScreenSize = React.useCallback(() => {
     window.innerWidth >= 960
       ? dispatch(PrefActions.toggleOpenNav(true))
       : dispatch(PrefActions.toggleOpenNav(false));
-  }
+  }, [dispatch]);
 
-  function onMenuItemClick(item) {
+  const onMenuItemClick = React.useCallback(item => {
     if (!item.onClick) {
       item.onClick = () => {
         Navigation.go(item.url);
       };
     }
     return item.onClick;
-  }
+  }, []);
 
   const menuContent = (
     <div className={classes.menuRoot}>
@@ -186,10 +186,7 @@ function _MainMenu() {
 
   return (
     <>
-      <Masthead
-        width={navWidth(navOpen)}
-        pageName={pageName}
-      />
+      <Masthead width={navWidth(navOpen)} pageName={pageName} />
       <nav className={classes.drawer} aria-label="Main menu">
         <Drawer
           classes={{
