@@ -23,7 +23,7 @@
     "@material-ui/pickers": "^3.2.10",
     "@sentry/browser": "^5.12.1",
     "array-move": "^2.2.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "clsx": "^1.1.0",
     "core-js": "^3.6.4",
     "date-fns": "^2.0.0",
